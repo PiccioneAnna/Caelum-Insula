@@ -4,6 +4,12 @@ using UnityEngine.EventSystems;
 
 namespace Inventory
 {
+    public class ItemHighlight
+    {
+
+    }
+
+
     public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [Header("UI")]

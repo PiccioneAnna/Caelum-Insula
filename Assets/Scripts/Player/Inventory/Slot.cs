@@ -26,6 +26,12 @@ namespace Inventory
         {
             image.color = notSelectedColor;
         }
+
+        public void Clear()
+        {
+            item = GetComponentInChildren<Item>();
+            Destroy(item.gameObject);
+        }
         #endregion
 
         #region Drag & Drop

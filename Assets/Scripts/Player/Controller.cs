@@ -10,6 +10,9 @@ namespace Player
     {
         #region Fields
 
+        [Header("UI References")]
+        public GameObject _inventoryUI;
+
         [HideInInspector] public Rigidbody2D _rb;
         [HideInInspector] public CapsuleCollider2D _collider;
         [HideInInspector] public Animator _animator;
@@ -47,6 +50,11 @@ namespace Player
             // Movement related
             _moveDirection = move.ReadValue<Vector2>();
 
+            // Menu related
+            if (Keyboard.current.iKey.wasReleasedThisFrame) 
+            { 
+                OpenInventory();
+            }
         }
 
         private void FixedUpdate()
@@ -69,6 +77,20 @@ namespace Player
         protected void ApplyMovement()
         {
             _rb.velocity = new Vector2(_moveDirection.x * _speed, _moveDirection.y * _speed);
+        }
+        #endregion
+
+        #region UI
+        /// <summary>
+        /// Method for opening the inventory UI
+        /// </summary>
+        protected void OpenInventory()
+        {
+            if(_inventoryUI == null) { return; }
+
+            bool isOpen = _inventoryUI.activeSelf;
+
+            _inventoryUI.SetActive(!isOpen);
         }
         #endregion
     }
