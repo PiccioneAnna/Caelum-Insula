@@ -39,6 +39,8 @@ namespace Inventory
         {
             item = eventData.pointerDrag.GetComponent<Inventory.Item>();
 
+            if (item == null) { return; }
+
             // If there isnt an object then set the item's parent to the slot dropped on
             if (transform.childCount == 0)
             {
