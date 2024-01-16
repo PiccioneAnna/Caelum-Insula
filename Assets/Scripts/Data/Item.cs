@@ -13,7 +13,7 @@ namespace Data
 
         public TileBase tile;
         public GameObject obj;
-        public Image image;
+        public Sprite image;
 
         public bool usesGrid = false;
         public bool stackable = true;

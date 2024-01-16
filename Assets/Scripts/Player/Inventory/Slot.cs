@@ -10,10 +10,16 @@ namespace Inventory
         public Inventory.Item item;
         public Image image;
         public Color selectedColor, notSelectedColor;
+        public bool craftingSlot = false;
 
         private void Awake()
         {
             Deselect();
+
+            if (craftingSlot == false)
+            {
+                GetComponent<Button>().interactable = false;
+            }
         }
 
         #region Selection
@@ -36,10 +42,8 @@ namespace Inventory
 
         #region Drag & Drop
         public void OnDrop(PointerEventData eventData)
-        {
-            item = eventData.pointerDrag.GetComponent<Inventory.Item>();
-
-            if (item == null) { return; }
+        {       
+            if (!eventData.pointerDrag.TryGetComponent(out item)) { return; }
 
             // If there isnt an object then set the item's parent to the slot dropped on
             if (transform.childCount == 0)

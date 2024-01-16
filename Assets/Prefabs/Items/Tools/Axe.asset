@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d864ca7e9147c4aa5f9a291cb6d6fa, type: 3}
+  m_Name: Axe
+  m_EditorClassIdentifier: 
+  itemName: Axe
+  id: 
+  itemType: 2
+  tile: {fileID: 0}
+  obj: {fileID: 0}
+  image: {fileID: 21300000, guid: 209346f6dee92f643a2faacd7868192e, type: 3}
+  usesGrid: 0
+  stackable: 0
+  iconHighlight: 0

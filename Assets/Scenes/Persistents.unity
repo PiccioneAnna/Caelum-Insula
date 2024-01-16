@@ -7642,6 +7642,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1960111477}
+  - component: {fileID: 1960111478}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -7665,6 +7666,19 @@ Transform:
   - {fileID: 1705796830}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1960111478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960111476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f1a188f5b1a1242b5850504ac995d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
 --- !u!114 &1961856289 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 414354298040391149, guid: 184fb193dac04524e95242e529827159, type: 3}
@@ -7791,7 +7805,11 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _collider: {fileID: 0}
   _animator: {fileID: 0}
+  inventoryManager: {fileID: 0}
   _speed: 5
+  selectedItem: {fileID: 0}
+  itemsToPickup:
+  - {fileID: 11400000, guid: 6499dd318e995ec4caae1ad7e33d6f28, type: 2}
 --- !u!114 &1969192322
 MonoBehaviour:
   m_ObjectHideFlags: 0

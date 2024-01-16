@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 namespace Inventory
 {
@@ -14,17 +15,23 @@ namespace Inventory
     {
         [Header("UI")]
         [HideInInspector] public Image image;
-        [HideInInspector] public Text countText;
+        [HideInInspector] public TMP_Text countText;
 
         public Data.Item item;
         public int count = 1;
         [HideInInspector] public Transform parentAfterDrag;
 
+        void Awake()
+        {
+            countText = GetComponentInChildren<TMP_Text>();
+            image = GetComponent<Image>();
+        }
+
         public void InitialiseItem(Data.Item newItem)
         {
             item = newItem;
-            Debug.Log(newItem);
-            image = newItem.image;
+            //Debug.Log(newItem);
+            image.sprite = newItem.image;
             RefreshCount();
         }
 

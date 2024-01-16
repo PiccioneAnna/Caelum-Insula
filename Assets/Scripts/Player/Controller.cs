@@ -16,21 +16,35 @@ namespace Player
         [HideInInspector] public Rigidbody2D _rb;
         [HideInInspector] public CapsuleCollider2D _collider;
         [HideInInspector] public Animator _animator;
-        public PlayerControls playerControls;
+        [HideInInspector] public PlayerControls playerControls;
+
+        [Header("Manager References")]
+        [HideInInspector] public GameManager gameManager;
+        [HideInInspector] public Inventory.Manager inventoryManager;
+        [HideInInspector] public static Controller controller;
 
         private InputAction move;
         private InputAction interact;
 
+        [Header("Stats")]
         public float _speed = 3f;
+        private float _currSpeed;
+        public float _sprintMultiplier = 1.6f;
         private Vector2 _movementInput;
         private Vector2 _moveDirection = Vector2.zero;
+
+        [Header("Data")]
+        public Data.Item selectedItem;
+        public Data.Item[] itemsToPickup;
 
         #endregion
 
         #region Runtime
         private void Awake()
         {
+            controller = this;
             playerControls = new();
+            gameManager = GameManager.Instance;
 
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
@@ -40,13 +54,15 @@ namespace Player
         // Start is called before the first frame update
         void Start()
         {
+            // Reference each manager in the GameManager
+            inventoryManager = gameManager.inventory;
 
+            PickupItemList();
         }
 
         // Update is called once per frame
         void Update()
         {
-
             // Movement related
             _moveDirection = move.ReadValue<Vector2>();
 
@@ -76,7 +92,9 @@ namespace Player
         #region Movement
         protected void ApplyMovement()
         {
-            _rb.velocity = new Vector2(_moveDirection.x * _speed, _moveDirection.y * _speed);
+            _currSpeed = Keyboard.current.shiftKey.wasPressedThisFrame ? _speed * _sprintMultiplier : _speed;
+
+            _rb.velocity = new Vector2(_moveDirection.x * _currSpeed, _moveDirection.y * _currSpeed);
         }
         #endregion
 
@@ -91,6 +109,21 @@ namespace Player
             bool isOpen = _inventoryUI.activeSelf;
 
             _inventoryUI.SetActive(!isOpen);
+        }
+        #endregion
+
+        #region Interactions
+        public void PickupItem(int id)
+        {
+            inventoryManager.AddItem(itemsToPickup[id]);
+        }
+        public void PickupItemList()
+        {
+            // Items player starts out with
+            for (int i = 0; i < itemsToPickup.Length; i++)
+            {
+                PickupItem(i);
+            }
         }
         #endregion
     }
