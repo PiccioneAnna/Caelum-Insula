@@ -7,17 +7,20 @@ namespace Data
     [CreateAssetMenu(menuName = "Game Data/Item")]
     public class Item : ScriptableObject
     {
+        [Header("Properties")]
         public string itemName;
         public string id;
         public ItemType itemType;
-
-        public TileBase tile;
-        public GameObject obj;
         public Sprite image;
 
+        [Header("Behaviors & Reliances")]
         public bool usesGrid = false;
         public bool stackable = true;
-        public bool iconHighlight;
+        public bool iconHighlight = false;
+
+        [Header("Dynamic")]
+        public TileBase tile;
+        public GameObject obj;
 
         public enum ItemType
         {

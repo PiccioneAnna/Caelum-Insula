@@ -8526,6 +8526,22 @@ PrefabInstance:
       propertyPath: _inventoryUI
       value: 
       objectReference: {fileID: 351971581}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: itemsToPickup.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: itemsToPickup.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 03c4a3ae0e6dc7c43ba7315433de75f9, type: 2}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: itemsToPickup.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: aa00b567347eccb47a8b2216a8bd1fb3, type: 2}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: itemsToPickup.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 292736a905e191f40a29d00ab3d7bcd3, type: 2}
     - target: {fileID: 7284837907591115463, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
