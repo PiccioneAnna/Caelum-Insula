@@ -23,6 +23,7 @@ namespace Inventory
         public Slot[] inventorySlots;
 
         private int selectedSlot = -1;
+        private int selectedSlotIndex = 0;
 
         [SerializeField] ItemHighlight itemHighlight;
 
@@ -42,12 +43,19 @@ namespace Inventory
             // Only does highlight if inventory expanded isn't open
             if (inventoryUI != null && !inventoryUI.activeSelf)
             {
+                if(selectedSlot == -1)
+                {
+                    selectedSlot = selectedSlotIndex;
+                    inventorySlots[selectedSlot].Select();
+                }
+
                 if (Input.inputString != null) { HandleScroll(); }
             }
             else
             {
-                if(selectedSlot!= -1)
+                if(selectedSlot != -1)
                 {
+                    selectedSlotIndex = selectedSlot;
                     inventorySlots[selectedSlot].Deselect();
                 }
 

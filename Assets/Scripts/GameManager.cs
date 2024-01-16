@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public Inventory.Manager inventory;
     public static GameManager Instance;
+    public GameObject itemVisual; // for always having item infront of all UI
 
     /// <summary>
     /// Class is a singleton, only one should exist at ALL times

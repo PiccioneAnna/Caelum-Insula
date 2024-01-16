@@ -48,7 +48,7 @@ namespace Inventory
             image.raycastTarget = false;
             countText.raycastTarget = false;
             parentAfterDrag = transform.parent;
-            transform.SetParent(transform.parent.parent.parent.parent);
+            transform.SetParent(GameManager.Instance.itemVisual.transform);
             transform.SetAsLastSibling();
         }
 

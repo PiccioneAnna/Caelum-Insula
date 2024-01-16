@@ -92,7 +92,7 @@ namespace Player
         #region Movement
         protected void ApplyMovement()
         {
-            _currSpeed = Keyboard.current.shiftKey.wasPressedThisFrame ? _speed * _sprintMultiplier : _speed;
+            _currSpeed = Keyboard.current.shiftKey.isPressed ? _speed * _sprintMultiplier : _speed;
 
             _rb.velocity = new Vector2(_moveDirection.x * _currSpeed, _moveDirection.y * _currSpeed);
         }
