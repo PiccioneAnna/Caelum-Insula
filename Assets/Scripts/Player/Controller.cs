@@ -44,7 +44,6 @@ namespace Player
         {
             controller = this;
             playerControls = new();
-            gameManager = GameManager.Instance;
 
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
@@ -54,6 +53,8 @@ namespace Player
         // Start is called before the first frame update
         void Start()
         {
+            gameManager = GameManager.Instance;
+
             // Reference each manager in the GameManager
             inventoryManager = gameManager.inventory;
 
