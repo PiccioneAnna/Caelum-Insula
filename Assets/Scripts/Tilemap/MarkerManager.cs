@@ -47,6 +47,11 @@ namespace TilemapScripts
             isMultiple = false;
         }
 
+        private void Start()
+        {
+            tileMapReader = GameManager.Instance.reader;
+        }
+
         private void Update()
         {
             if (isShow == false) { return; }

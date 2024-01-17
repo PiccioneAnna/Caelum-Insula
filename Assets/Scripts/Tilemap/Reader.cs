@@ -6,7 +6,7 @@ namespace TilemapScripts
     public class Reader : MonoBehaviour
     {
         #region fields
-        [SerializeField] Tilemap tilemap;
+        [SerializeField] public Tilemap tilemap;
         private Vector3 worldPosition;
         #endregion
 

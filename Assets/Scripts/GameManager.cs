@@ -1,10 +1,17 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
+using TilemapScripts;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public Inventory.Manager inventory;
+    public TilemapScripts.CropsManager cropsManager;
+    public TilemapScripts.Reader reader;
+    public MarkerManager markerManager;
+    public TimeController timeController;
+    public Controller player;
     public static GameManager Instance;
     public GameObject itemVisual; // for always having item infront of all UI
 

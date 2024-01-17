@@ -5,6 +5,8 @@ namespace Inventory
 {
     public class Manager : MonoBehaviour
     {
+        #region Fields
+
         [Header("Manager References")]
         public Manager inventoryManager;
 
@@ -26,6 +28,8 @@ namespace Inventory
         private int selectedSlotIndex = 0;
 
         [SerializeField] ItemHighlight itemHighlight;
+
+        #endregion
 
         #region Runtime
 
@@ -169,15 +173,15 @@ namespace Inventory
             return false;
         }
 
-        public void RemoveItem(Item item, int count = 1)
+        public void RemoveItem(Data.Item item, int count = 1)
         {
-            if (item == selectedItem && !item.item.stackable)
+            if (item == selectedItem && !item.stackable)
             {
                 selectedItem = null;
                 //UpdateHighlightItem(selectedSlot);
             }
 
-            if (item.item.stackable)
+            if (item.stackable)
             {
                 Slot inventorySlot = null;
                 foreach (Slot slot in inventorySlots)

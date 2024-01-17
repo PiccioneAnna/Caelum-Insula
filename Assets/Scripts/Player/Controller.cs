@@ -1,7 +1,10 @@
+using Inventory;
 using System.Collections;
 using System.Collections.Generic;
+using TilemapScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 // Class handles movement, actions, and main references to other systems
 namespace Player
@@ -21,21 +24,32 @@ namespace Player
         [Header("Manager References")]
         [HideInInspector] public GameManager gameManager;
         [HideInInspector] public Inventory.Manager inventoryManager;
+        [HideInInspector] public MarkerManager markerManager;
+        [HideInInspector] TilemapScripts.Reader tilemapReader;
         [HideInInspector] public static Controller controller;
 
         private InputAction move;
         private InputAction interact;
 
+        private bool useGrid;
+        private bool selectable;
+        public bool isInteract = false;
+
         [Header("Stats")]
         public float _speed = 3f;
         private float _currSpeed;
         public float _sprintMultiplier = 1.6f;
+        [SerializeField] float maxDistance = 1.5f;
         private Vector2 _movementInput;
         private Vector2 _moveDirection = Vector2.zero;
 
         [Header("Data")]
+        Vector3Int selectedTilePosition;
         public Data.Item selectedItem;
         public Data.Item[] itemsToPickup;
+
+        [SerializeField] ToolActions.Base onTilePickUp;
+        [SerializeField] ItemHighlight itemHighlight;
 
         #endregion
 
@@ -57,6 +71,8 @@ namespace Player
 
             // Reference each manager in the GameManager
             inventoryManager = gameManager.inventory;
+            tilemapReader = gameManager.reader;
+            markerManager = gameManager.markerManager;
 
             PickupItemList();
         }
@@ -66,6 +82,8 @@ namespace Player
         {
             // Movement related
             _moveDirection = move.ReadValue<Vector2>();
+
+            HandleSelection();
 
             // Menu related
             if (Keyboard.current.iKey.wasReleasedThisFrame) 
@@ -125,6 +143,47 @@ namespace Player
             {
                 PickupItem(i);
             }
+        }
+        private void SelectTile()
+        {
+            selectedTilePosition = tilemapReader.GetGridPosition(tilemapReader.tilemap,Input.mousePosition, true);
+            Marker();
+        }
+        private void Marker()
+        {
+            markerManager.markedCellPosition = selectedTilePosition;
+            itemHighlight.cellPosition = selectedTilePosition;
+        }
+        private void HandleSelection()
+        {
+            selectedItem = inventoryManager.selectedItem;
+
+            // Checks if grid needs to be displayed
+            if (selectedItem == null || selectedItem.usesGrid)
+            {
+                useGrid = true;
+                CanSelectCheck();
+                SelectTile();
+            }
+            else
+            {
+                useGrid = false;
+                markerManager.Show(false);
+            }
+        }
+        #endregion
+
+
+        #region Checks
+        // Method checks if it is possible for the user to select the tile 
+        // based on its position and the camera's posiiton
+        void CanSelectCheck()
+        {
+            Vector2 characterPosition = transform.position;
+            Vector2 cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            selectable = Vector2.Distance(characterPosition, cameraPosition) < maxDistance;
+            markerManager.Show(selectable);
+            itemHighlight.CanSelect = selectable;
         }
         #endregion
     }
