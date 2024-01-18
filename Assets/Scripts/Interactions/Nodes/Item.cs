@@ -17,11 +17,18 @@ namespace Data
         public bool usesGrid = false;
         public bool stackable = true;
         public bool iconHighlight = false;
+        public bool isWeapon;
+        public bool isConsumable;
 
         [Header("Dynamic")]
         public TileBase tile;
         public GameObject obj;
         public Crop crop;
+
+        [Header("Actions")]
+        public ToolActions.Base onAction;
+        public ToolActions.Base onTileMapAction;
+        public ToolActions.Base onItemUsed;
 
         public enum ItemType
         {

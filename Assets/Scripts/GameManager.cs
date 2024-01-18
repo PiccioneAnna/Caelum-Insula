@@ -1,6 +1,4 @@
 using Player;
-using System.Collections;
-using System.Collections.Generic;
 using TilemapScripts;
 using UnityEngine;
 
@@ -8,9 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public Inventory.Manager inventory;
     public TilemapScripts.CropsManager cropsManager;
-    public TilemapScripts.Reader reader;
+    public Reader reader;
     public MarkerManager markerManager;
     public TimeController timeController;
+    public SceneManager sceneManager;
+    public PlaceableObjectsReferenceManager placeableObjectsManager;
     public Controller player;
     public static GameManager Instance;
     public GameObject itemVisual; // for always having item infront of all UI
@@ -30,6 +30,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
         }
 
-        inventory = GetComponentInChildren<Inventory.Manager>();
+        inventory = GetComponent<Inventory.Manager>();
     }
 }

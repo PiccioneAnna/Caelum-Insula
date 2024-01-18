@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Inventory
 {
-    [CreateAssetMenu(menuName = "Data/Crops Container")]
+    [CreateAssetMenu(menuName = "Containers/Crops Container")]
     public class CropsContainer : ScriptableObject
     {
         public List<CropTile> crops;

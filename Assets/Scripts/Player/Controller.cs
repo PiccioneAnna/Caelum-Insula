@@ -1,9 +1,11 @@
+using Interacts;
 using Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using TilemapScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 // Class handles movement, actions, and main references to other systems
@@ -31,17 +33,21 @@ namespace Player
         private InputAction move;
         private InputAction interact;
 
+        [Header("Conditions")]
         private bool useGrid;
         private bool selectable;
         public bool isInteract = false;
+        public bool isUIOpen = false;
 
         [Header("Stats")]
         public float _speed = 3f;
         private float _currSpeed;
         public float _sprintMultiplier = 1.6f;
+        [SerializeField] private float sizeOfIA = 3f; // static for all tools for now
         [SerializeField] float maxDistance = 1.5f;
         private Vector2 _movementInput;
         private Vector2 _moveDirection = Vector2.zero;
+        public Character character;
 
         [Header("Data")]
         Vector3Int selectedTilePosition;
@@ -75,6 +81,8 @@ namespace Player
             markerManager = gameManager.markerManager;
 
             PickupItemList();
+
+            HandleSelection();
         }
 
         // Update is called once per frame
@@ -90,6 +98,27 @@ namespace Player
             { 
                 OpenInventory();
             }
+
+            if (Input.GetMouseButton(0))
+            {
+                Interact();
+                if (!isInteract && !isUIOpen && useGrid)
+                {
+                    UseToolGrid();
+                    character.GetTired(5);
+                    Debug.Log("Stamina used");
+                }
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (!isInteract && !isUIOpen)
+                {
+                    UseToolWorld();
+                    character.GetTired(5);
+                    Debug.Log("Stamina used");
+                }
+            }
+
         }
 
         private void FixedUpdate()
@@ -131,6 +160,75 @@ namespace Player
         }
         #endregion
 
+        #region Tools
+        private bool UseToolWorld()
+        {
+            Vector2 position = _rb.position;
+
+            if (selectedItem == null) { return false; }
+            if (selectedItem.onAction == null) { return false; }
+
+            bool complete = selectedItem.onAction.OnApply(position);
+
+
+            // Checks if item used can be removed from inventory
+            if (complete)
+            {
+                if (selectedItem.onItemUsed != null)
+                {
+                    selectedItem.onItemUsed.OnItemUsed(selectedItem, inventoryManager);
+                }
+            }
+
+            return complete;
+        }
+
+        public void UseToolGrid()
+        {
+
+            if (selectable)
+            {
+                if (selectedItem == null)
+                {
+                    PickUpTile();
+                    return;
+                }
+                if (selectedItem.onTileMapAction == null) { return; }
+
+                bool complete = selectedItem.onTileMapAction.OnApplyToTileMap(selectedTilePosition, tilemapReader, selectedItem);
+
+                // Checks if item used can be removed from inventory
+                if (complete)
+                {
+                    if (selectedItem.onItemUsed != null)
+                    {
+                        selectedItem.onItemUsed.OnItemUsed(selectedItem, inventoryManager);
+                    }
+                }
+            }
+        }
+
+        private void Interact()
+        {
+            /// Handles collision for key input instead of mouse
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 position = _rb.position;
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfIA);
+
+                foreach (Collider2D c in colliders)
+                {
+                    Interactable obj = c.GetComponent<Interactable>();
+                    if (obj != null)
+                    {
+                        obj.Interact(controller);
+                    }
+                }
+            }
+        }
+        #endregion
+
         #region Interactions
         public void PickupItem(int id)
         {
@@ -148,6 +246,11 @@ namespace Player
         {
             selectedTilePosition = tilemapReader.GetGridPosition(tilemapReader.tilemap,Input.mousePosition, true);
             Marker();
+        }
+        private void PickUpTile()
+        {
+            if (onTilePickUp == null) { return; }
+            onTilePickUp.OnApplyToTileMap(selectedTilePosition, tilemapReader, null);
         }
         private void Marker()
         {
@@ -173,7 +276,7 @@ namespace Player
         }
         #endregion
 
-
+        
         #region Checks
         // Method checks if it is possible for the user to select the tile 
         // based on its position and the camera's posiiton
