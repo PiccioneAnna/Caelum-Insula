@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Controller player;
     public static GameManager Instance;
     public GameObject itemVisual; // for always having item infront of all UI
+    public GetCameraCollider getCameraCollider;
 
     [Header("Tilemaps")]
     [SerializeField] public Dictionary<string, Tilemap> tilemaps;
@@ -39,6 +40,11 @@ public class GameManager : MonoBehaviour
         }
 
         inventory = GetComponent<Inventory.Manager>();
+    }
+
+    private void Start()
+    {
+        getCameraCollider.ResetCameraCollider();
     }
 
     public void FindTilemaps()

@@ -47,11 +47,6 @@ public class SceneInformation : MonoBehaviour
     [SerializeField] public SceneEnum top;
     [SerializeField] public SceneEnum bottom;
 
-    private void Awake()
-    {
-        cameraCollider = GetComponentInParent<PolygonCollider2D>();
-    }
-
 }
 
 

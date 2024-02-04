@@ -16,14 +16,16 @@ public class Transition : MonoBehaviour
 {
     [SerializeField] TransitionType transitionType;
     [SerializeField] SceneEnum sceneNameToTransition;
-    [SerializeField] Vector3 targetPosition;
+    [SerializeField] Vector3 offsetPosition;
+    private Vector3 targetPosition;
+    private Vector3 playerPosition;
 
     Transform destination;
 
     // Start is called before the first frame update
     void Start()
     {
-        destination = transform.GetChild(1);
+        destination = transform;
     }
 
     /// <summary>
@@ -34,6 +36,8 @@ public class Transition : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
+            playerPosition = collision.transform.position;
+            CalculateTransitionDistance();
             InitiateTransition(collision.transform);
         }
     }
@@ -60,6 +64,11 @@ public class Transition : MonoBehaviour
                 GameManager.Instance.sceneManager.InitSwitchScene(EnumHelper.GetDescription(sceneNameToTransition), targetPosition);
                 break;
         }
+    }
+
+    private void CalculateTransitionDistance()
+    {
+        targetPosition = playerPosition + offsetPosition;
     }
 }
 

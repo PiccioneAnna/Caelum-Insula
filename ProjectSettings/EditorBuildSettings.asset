@@ -8,4 +8,34 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Static/Air.unity
+    guid: 1230d0e81a186d346b594334c61d8a2e
+  - enabled: 1
+    path: Assets/Scenes/Static/Center.unity
+    guid: dcf78125df2202b4780b3a23ce0c65a8
+  - enabled: 1
+    path: Assets/Scenes/Static/Earth.unity
+    guid: 36ff4c3af5d58d0409116507069f4c9a
+  - enabled: 1
+    path: Assets/Scenes/Static/Earth-Air.unity
+    guid: 2b94c5ed8431e3a4988d8193fae118c2
+  - enabled: 1
+    path: Assets/Scenes/Static/Earth-Water.unity
+    guid: ea9074f55400bb943b27e48d2eb7d974
+  - enabled: 1
+    path: Assets/Scenes/Static/Fire.unity
+    guid: 5618d635cd0591b429d874fdca2752ea
+  - enabled: 1
+    path: Assets/Scenes/Static/Fire-Air.unity
+    guid: f59e6a4f0cb31c1419a62b2099975f9c
+  - enabled: 1
+    path: Assets/Scenes/Static/Fire-Water.unity
+    guid: 145f89cf551582c4692fe28f78fe5406
+  - enabled: 1
+    path: Assets/Scenes/Static/Water.unity
+    guid: 40b0066a1c8a56245a43de61cbb6beb4
+  - enabled: 0
+    path: Assets/Scenes/Player/Persistents.unity
+    guid: d4ab852ce2379964688d1aea82c0ad5d
   m_configObjects: {}
