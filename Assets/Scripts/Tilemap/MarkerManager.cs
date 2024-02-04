@@ -29,6 +29,7 @@ namespace TilemapScripts
         Vector3Int oldCellPosition;
 
         [Header("Conditional States")]
+        public bool isBuildMode = false;
         public bool isShow;
         public bool isMultiple;
         public bool isPlace;
@@ -58,7 +59,8 @@ namespace TilemapScripts
 
             SelectTile();
             Marker();
-            ExpandFloor();
+
+            if (isBuildMode) { ExpandFloor(); }
         }
         #endregion
 

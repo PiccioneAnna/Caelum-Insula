@@ -19,5 +19,11 @@ MonoBehaviour:
   usesGrid: 1
   stackable: 0
   iconHighlight: 0
+  isWeapon: 0
+  isConsumable: 0
   tile: {fileID: 0}
   obj: {fileID: 0}
+  crop: {fileID: 0}
+  onAction: {fileID: 0}
+  onTileMapAction: {fileID: 11400000, guid: fe583685530017f4fab1ae3889193cb0, type: 2}
+  onItemUsed: {fileID: 0}

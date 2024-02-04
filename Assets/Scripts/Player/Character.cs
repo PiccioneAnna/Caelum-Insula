@@ -37,16 +37,23 @@ public class Character : MonoBehaviour
 {
     public int level = 1;
 
-    public Stat hp;
-    [SerializeField] StatusBar hpBar;
+    [Header("Stats")]
+    public Stat hp;   
     public Stat energy;
-    [SerializeField] StatusBar energyBar;
-
+    
+    [Header ("States")]
     public bool isDead;
     public bool isExhausted;
 
+    [Header("Status Bars")]
+    [SerializeField] StatusBar hpBar;
+    [SerializeField] StatusBar energyBar;
+
     private void Start()
     {
+        hp.currVal = hp.maxVal;
+        energy.currVal = energy.maxVal;
+
         UpdateHPBar();
         UpdateEnergyBar();
     }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a1ac04979baf94aaea61f9c1f7a42b, type: 3}
   m_Name: Hoe
   m_EditorClassIdentifier: 
-  canHoe: []
+  canHoe:
+  - {fileID: 11400000, guid: 6892084e6cdebda418dc8a1caf3febc2, type: 2}
   tilemap: {fileID: 0}

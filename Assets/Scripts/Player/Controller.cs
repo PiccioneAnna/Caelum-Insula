@@ -6,6 +6,7 @@ using TilemapScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 // Class handles movement, actions, and main references to other systems
@@ -124,6 +125,10 @@ namespace Player
         private void FixedUpdate()
         {
             ApplyMovement();
+
+            // Passive Regen
+            character.Rest(5);
+            character.Heal(2);
         }
 
         private void OnEnable()

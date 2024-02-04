@@ -1,6 +1,8 @@
 using Player;
+using System.Collections.Generic;
 using TilemapScripts;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,11 +17,17 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject itemVisual; // for always having item infront of all UI
 
+    [Header("Tilemaps")]
+    [SerializeField] public Dictionary<string, Tilemap> tilemaps;
+
     /// <summary>
     /// Class is a singleton, only one should exist at ALL times
     /// </summary>
     void Awake()
     {
+        tilemaps = new Dictionary<string, Tilemap>();
+        FindTilemaps();
+
         if (Instance == null) // If there is no instance already
         {
             DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
@@ -31,5 +39,19 @@ public class GameManager : MonoBehaviour
         }
 
         inventory = GetComponent<Inventory.Manager>();
+    }
+
+    public void FindTilemaps()
+    {
+        tilemaps.Clear();
+
+        GameObject grid = GameObject.Find("Tilemap Parent");
+
+        if(grid != null) { return; }
+
+        foreach (Transform tilemap in grid.transform)
+        {
+            tilemaps.Add(tilemap.name, tilemap.GetComponent<Tilemap>());
+        }
     }
 }

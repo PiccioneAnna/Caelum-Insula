@@ -25,7 +25,14 @@ namespace TilemapScripts
             inventoryManager = GameManager.Instance.inventory;
             onTimeTick += Tick;
             Init();
+            FindCorrectTilemaps();
             VisualizeMap();
+        }
+
+        public void FindCorrectTilemaps()
+        {
+            targetTilemap = GameObject.Find("Crops").GetComponent<Tilemap>();
+            parentTilemap = GameObject.Find("0").GetComponent<Tilemap>();
         }
 
         // Clean up crops in container upon destroy
@@ -96,7 +103,7 @@ namespace TilemapScripts
 
         public void Till(Vector3Int position)
         {
-            parentTilemap.SetTile(new Vector3Int(position.x, position.y, 0), tilled);
+            targetTilemap.SetTile(new Vector3Int(position.x, position.y, 0), tilled);
         }
 
         public void Seed(Vector3Int position, Crop toSeed)

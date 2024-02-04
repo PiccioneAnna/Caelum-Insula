@@ -40,13 +40,24 @@ public class CropsManager : MonoBehaviour
 {
     public TilemapScripts.CropsManager cropsManager;
 
-    public void PickUp(Vector3Int position)
+    private void TilemapCheck()
     {
         if (cropsManager == null)
         {
-            Debug.LogWarning("No crops manager referenced");
-            return;
+            Debug.Log("No crops manager referenced, looking for one.");
+            cropsManager = GameObject.Find("Crops").GetComponent<TilemapScripts.CropsManager>();
+
+            if (cropsManager == null)
+            {
+                Debug.LogWarning("No crops manager found. Method returned");
+                return;
+            }
         }
+    }
+
+    public void PickUp(Vector3Int position)
+    {
+        TilemapCheck();
         cropsManager.PickUp(position);
     }
 
@@ -57,31 +68,19 @@ public class CropsManager : MonoBehaviour
 
     public void Seed(Vector3Int position, Crop toSeed)
     {
-        if (cropsManager == null)
-        {
-            Debug.LogWarning("No crops manager referenced");
-            return;
-        }
+        TilemapCheck();
         cropsManager.Seed(position, toSeed);
     }
 
     public void Plow(Vector3Int position)
     {
-        if (cropsManager == null)
-        {
-            Debug.LogWarning("No crops manager referenced");
-            return;
-        }
+        TilemapCheck();
         cropsManager.Plow(position);
     }
 
     public void Till(Vector3Int position)
     {
-        if (cropsManager == null)
-        {
-            Debug.LogWarning("No crops manager referenced");
-            return;
-        }
+        TilemapCheck();
         cropsManager.Till(position);
     }
 }
