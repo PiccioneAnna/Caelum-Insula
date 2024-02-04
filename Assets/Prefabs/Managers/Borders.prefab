@@ -103,8 +103,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -18.402409, y: 15.767259}
-  - {x: 16.883165, y: 15.76726}
+  - {x: -35.44596, y: 31.139874}
+  - {x: 38.77243, y: 31.139875}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionType: 1
   sceneNameToTransition: 1
-  offsetPosition: {x: 0, y: 20, z: 0}
+  offsetPosition: {x: 0, y: 1, z: 0}
 --- !u!1 &3061624055755831314
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +192,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -16.507586, y: -15.828227}
-  - {x: 17.987278, y: -15.828227}
+  - {x: -37.629395, y: -30.37437}
+  - {x: 39.706867, y: -30.573635}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionType: 1
   sceneNameToTransition: 7
-  offsetPosition: {x: 0, y: -20, z: 0}
+  offsetPosition: {x: 0, y: -1, z: 0}
 --- !u!1 &6139038057868296868
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,8 +281,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 15.776619, y: -18.29438}
-  - {x: 15.700479, y: 17.397598}
+  - {x: 30.647953, y: -37.844337}
+  - {x: 30.571814, y: 35.94499}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionType: 1
   sceneNameToTransition: 5
-  offsetPosition: {x: 20, y: 0, z: 0}
+  offsetPosition: {x: 1, y: 0, z: 0}
 --- !u!1 &7236667547743450940
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,8 +370,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -15.7004795, y: 16.500814}
-  - {x: -15.642101, y: -16.904367}
+  - {x: -30.844412, y: 36.227783}
+  - {x: -31.184563, y: -36.830593}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -390,4 +390,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionType: 1
   sceneNameToTransition: 7
-  offsetPosition: {x: -20, y: 0, z: 0}
+  offsetPosition: {x: -1, y: 0, z: 0}

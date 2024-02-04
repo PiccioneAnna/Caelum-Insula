@@ -36,6 +36,8 @@ public class Transition : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
+            if (sceneNameToTransition == SceneEnum.Null) { return; }
+
             playerPosition = collision.transform.position;
             CalculateTransitionDistance();
             InitiateTransition(collision.transform);
@@ -68,7 +70,7 @@ public class Transition : MonoBehaviour
 
     private void CalculateTransitionDistance()
     {
-        targetPosition = playerPosition + offsetPosition;
+        targetPosition = playerPosition + (offsetPosition * 5f);
     }
 }
 

@@ -101,25 +101,24 @@ namespace Player
             }
 
             if (Input.GetMouseButton(0))
-            {
-                Interact();
-                if (!isInteract && !isUIOpen && useGrid)
-                {
-                    UseToolGrid();
-                    character.GetTired(5);
-                    Debug.Log("Stamina used");
-                }
-            }
-            if (Input.GetMouseButtonDown(0))
-            {
+            {             
                 if (!isInteract && !isUIOpen)
                 {
-                    UseToolWorld();
-                    character.GetTired(5);
-                    Debug.Log("Stamina used");
+                    Interact();
+
+                    if(!isInteract && useGrid)
+                    {
+                        UseToolGrid();
+                        character.GetTired(1);
+                    }
+                    else if (!isInteract)
+                    {
+                        UseToolWorld();
+                        character.GetTired(1);
+                    }
+
                 }
             }
-
         }
 
         private void FixedUpdate()
@@ -127,8 +126,8 @@ namespace Player
             ApplyMovement();
 
             // Passive Regen
-            character.Rest(5);
-            character.Heal(2);
+            character.Rest(1);
+            character.Heal(1);
         }
 
         private void OnEnable()
@@ -162,6 +161,8 @@ namespace Player
             bool isOpen = _inventoryUI.activeSelf;
 
             _inventoryUI.SetActive(!isOpen);
+
+            isUIOpen = !isOpen;
         }
         #endregion
 

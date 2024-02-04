@@ -51,7 +51,6 @@ public class SceneManager : MonoBehaviour
 
         GameManager.Instance.FindTilemaps();
         GameManager.Instance.cropsManager.FindCorrectTilemaps();
-
         GameManager.Instance.getCameraCollider.ResetCameraCollider();
     }
 
