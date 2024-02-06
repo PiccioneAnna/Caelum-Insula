@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Stick
   id: 
-  itemType: 0
-  tile: {fileID: 0}
-  obj: {fileID: 0}
-  image: {fileID: 0}
+  itemType: 1
+  image: {fileID: 21300000, guid: cfc85555fe88ba94484d12d65ac03a4b, type: 3}
   usesGrid: 0
   stackable: 1
   iconHighlight: 0
+  isWeapon: 0
+  isConsumable: 0
+  damage: 2
+  tile: {fileID: 0}
+  obj: {fileID: 0}
+  crop: {fileID: 0}
+  onAction: {fileID: 0}
+  onTileMapAction: {fileID: 0}
+  onItemUsed: {fileID: 0}

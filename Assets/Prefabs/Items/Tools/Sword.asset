@@ -21,6 +21,7 @@ MonoBehaviour:
   iconHighlight: 0
   isWeapon: 1
   isConsumable: 0
+  damage: 10
   tile: {fileID: 0}
   obj: {fileID: 0}
   crop: {fileID: 0}

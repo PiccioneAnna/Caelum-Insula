@@ -21,14 +21,11 @@ namespace Inventory
         public int count = 1;
         [HideInInspector] public Transform parentAfterDrag;
 
-        void Awake()
+        public void InitialiseItem(Data.Item newItem)
         {
             countText = GetComponentInChildren<TMP_Text>();
             image = GetComponent<Image>();
-        }
 
-        public void InitialiseItem(Data.Item newItem)
-        {
             item = newItem;
             //Debug.Log(newItem);
             image.sprite = newItem.image;

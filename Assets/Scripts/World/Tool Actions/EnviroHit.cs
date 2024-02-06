@@ -30,13 +30,13 @@ namespace ToolActions
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(worldPoint, sizeOfInteractableArea);
 
-            Debug.Log("Using on apply");
+            Debug.Log("Enviro Hit");
 
             foreach (Collider2D c in colliders)
             {
-                if(c.TryGetComponent<ToolHit>(out var hit))
+                if(c.TryGetComponent<Resource>(out var hit))
                 {
-                    if (hit.CanBeHit(canHitNodesOfType))
+                    if (canHitNodesOfType.Contains(hit.nodeType))
                     {
                         hit.Hit();
                         return true;

@@ -9,7 +9,7 @@ public class Drop : MonoBehaviour
     public float distance;
 
     [SerializeField] float speed = 2f;
-    [SerializeField] float pickUpDistance = 1.5f;
+    [SerializeField] float pickUpDistance = 3.5f;
     [SerializeField] float ttl = 10f;
 
     private void Awake()
@@ -17,7 +17,7 @@ public class Drop : MonoBehaviour
         player = GameManager.Instance.player;
     }
 
-    private void Update()
+    void Update()
     {
         distance = Vector3.Distance(transform.position, player.transform.position);
 
@@ -25,7 +25,12 @@ public class Drop : MonoBehaviour
         {
             return;
         }
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            player.transform.position,
+            speed * Time.deltaTime
+            );
 
         if (distance < .1f)
         {
