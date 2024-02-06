@@ -8356,6 +8356,7 @@ GameObject:
   - component: {fileID: 1960111484}
   - component: {fileID: 1960111485}
   - component: {fileID: 1960111486}
+  - component: {fileID: 1960111487}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -8396,6 +8397,7 @@ MonoBehaviour:
   markerManager: {fileID: 1590472853}
   timeController: {fileID: 1960111481}
   sceneManager: {fileID: 1960111486}
+  screenMessageSystem: {fileID: 1960111487}
   placeableObjectsManager: {fileID: 1960111484}
   player: {fileID: 1969192323}
   itemVisual: {fileID: 356453348}
@@ -8541,6 +8543,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 3402417929478555289}
   screenTint: {fileID: 1807295900}
+--- !u!114 &1960111487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960111476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0d3d82a826acc4f8e2b2317b6b94db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPrefab: {fileID: 8322359224013458749, guid: a0940704b3df8f8478734b8addc6b89a, type: 3}
+  horizontalScatter: 0.5
+  verticalScatter: 0.5
+  timeToLive: 1
 --- !u!114 &1961856289 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 414354298040391149, guid: 184fb193dac04524e95242e529827159, type: 3}
@@ -9254,16 +9272,32 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4147426740182569433, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: damageColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147426740182569433, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: damageColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147426740182569433, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: damageColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147426740182569433, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: damageColor.r
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147426740182569433, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: energy.maxVal
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6400389507339924365, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6400389507339924365, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: m_Color.g
-      value: 0.95184326
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6400389507339924365, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: m_Color.r
@@ -9278,6 +9312,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1969192327}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: sizeOfIA.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: sizeOfIA.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: maxDistance
       value: 2.5
       objectReference: {fileID: 0}
@@ -9291,7 +9333,7 @@ PrefabInstance:
       objectReference: {fileID: 1279442876}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: itemsToPickup.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: itemsToPickup.Array.data[1]
@@ -9305,6 +9347,10 @@ PrefabInstance:
       propertyPath: itemsToPickup.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: 292736a905e191f40a29d00ab3d7bcd3, type: 2}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: itemsToPickup.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 54d1b3352c72b134188fa7c6323f818d, type: 2}
     - target: {fileID: 7284837907591115463, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9359,7 +9405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8224716152799558134, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

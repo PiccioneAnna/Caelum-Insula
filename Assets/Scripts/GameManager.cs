@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public MarkerManager markerManager;
     public TimeController timeController;
     public SceneManager sceneManager;
+    public OnScreenMessageSystem screenMessageSystem;
     public PlaceableObjectsReferenceManager placeableObjectsManager;
     public Controller player;
     public static GameManager Instance;

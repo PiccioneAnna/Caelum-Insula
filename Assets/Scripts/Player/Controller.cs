@@ -44,11 +44,12 @@ namespace Player
         public float _speed = 3f;
         private float _currSpeed;
         public float _sprintMultiplier = 1.6f;
-        [SerializeField] private float sizeOfIA = 3f; // static for all tools for now
-        [SerializeField] float maxDistance = 1.5f;
+        public Vector2 sizeOfIA; // static for all tools for now
+        float maxDistance = 1.5f;
         private Vector2 _movementInput;
         private Vector2 _moveDirection = Vector2.zero;
         public Character character;
+        private float offsetDistance = 1.2f;
 
         [Header("Data")]
         Vector3Int selectedTilePosition;
@@ -100,6 +101,11 @@ namespace Player
                 OpenInventory();
             }
 
+            if(Input.GetMouseButtonDown(0))
+            {
+                WeaponAction();
+            }
+
             if (Input.GetMouseButton(0))
             {             
                 if (!isInteract && !isUIOpen)
@@ -126,8 +132,8 @@ namespace Player
             ApplyMovement();
 
             // Passive Regen
-            character.Rest(1);
-            character.Heal(1);
+            character.Rest(.05f);
+            character.Heal(.05f);
         }
 
         private void OnEnable()
@@ -221,7 +227,7 @@ namespace Player
             {
                 Vector2 position = _rb.position;
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfIA);
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfIA.x);
 
                 foreach (Collider2D c in colliders)
                 {
@@ -231,6 +237,15 @@ namespace Player
                         obj.Interact(controller);
                     }
                 }
+            }
+        }
+
+        private void WeaponAction()
+        {
+            //Player can only attack withitems marked as weapons
+            if (selectedItem != null && selectedItem.isWeapon)
+            {
+                Attack(selectedItem.damage);
             }
         }
         #endregion
@@ -280,9 +295,31 @@ namespace Player
                 markerManager.Show(false);
             }
         }
+        public void Attack(float damage)
+        {
+            Vector2 position = _rb.position + _moveDirection * offsetDistance;
+
+            Collider2D[] targets = Physics2D.OverlapBoxAll(position, sizeOfIA, 0f);
+
+            foreach (Collider2D c in targets)
+            {
+                if (c.TryGetComponent<Damageable>(out var damageable))
+                {
+                    damageable.TakeDamage(damage);
+                    break;
+                }
+
+                Damageable damageable1 = c.gameObject.GetComponentInParent<Damageable>();
+
+                if (damageable1 != null)
+                {
+                    damageable1.TakeDamage(damage);
+                }
+            }
+        }
         #endregion
 
-        
+
         #region Checks
         // Method checks if it is possible for the user to select the tile 
         // based on its position and the camera's posiiton

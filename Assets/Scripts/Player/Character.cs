@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using UI;
+using System.Collections;
 
 [Serializable]
 public class Stat
@@ -49,10 +50,17 @@ public class Character : MonoBehaviour
     [SerializeField] StatusBar hpBar;
     [SerializeField] StatusBar energyBar;
 
+    [Header("Color Theory")]
+    [SerializeField] Color damageColor = Color.red;
+    private SpriteRenderer spriteRenderer;
+
+
     private void Start()
     {
         hp.currVal = hp.maxVal;
         energy.currVal = energy.maxVal;
+
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         UpdateHPBar();
         UpdateEnergyBar();
@@ -74,22 +82,29 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        //Visual appearence of taking damage
+        spriteRenderer.color = damageColor;
+        StartCoroutine(Whitecolor());
+
         hp.Subtract(amount);
         if (hp.currVal <= 0)
         {
             isDead = true;
         }
+
         UpdateHPBar();
     }
 
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         hp.Add(amount);
+        UpdateHPBar();
     }
 
     public void FullHeal()
     {
         hp.SetToMax();
+        UpdateHPBar();
     }
 
     #endregion
@@ -118,6 +133,14 @@ public class Character : MonoBehaviour
         UpdateEnergyBar();
     }
 
+    #endregion
+
+    #region Helper Methods
+    IEnumerator Whitecolor()
+    {
+        yield return new WaitForSeconds(0.25f);
+        spriteRenderer.color = Color.white;
+    }
     #endregion
 
 }

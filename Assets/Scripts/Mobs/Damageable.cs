@@ -7,18 +7,15 @@ public class Damageable : MonoBehaviour
 {
     IDamageable damageable;
 
-    internal void TakeDamage(int damage)
+    internal void TakeDamage(float damage)
     {
-        if (damageable == null)
-        {
-            damageable = GetComponent<IDamageable>();
-        }
+        damageable ??= GetComponent<IDamageable>();
 
         if (damageable != null)
         {
             damageable.CalculateDamage(ref damage);
             damageable.ApplyDamage(damage);
-            //GameManager.instance.messageSystem.PostMessage(transform.position, damage.ToString());
+            GameManager.Instance.screenMessageSystem.PostMessage(transform.position, damage.ToString());
             damageable.CheckState();
         }
     }

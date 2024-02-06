@@ -20,6 +20,9 @@ namespace Data
         public bool isWeapon;
         public bool isConsumable;
 
+        [Header("Stats")]
+        public float damage = 2f;
+
         [Header("Dynamic")]
         public TileBase tile;
         public GameObject obj;

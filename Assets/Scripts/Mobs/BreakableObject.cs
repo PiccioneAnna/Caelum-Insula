@@ -5,14 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Damageable))]
 public class BreakableObject : MonoBehaviour, IDamageable
 {
-    [SerializeField] int hp = 10;
+    [SerializeField] float hp = 10;
 
-    public void ApplyDamage(int damage)
+    public void ApplyDamage(float damage)
     {
         hp -= damage;
     }
 
-    public void CalculateDamage(ref int damage)
+    public void CalculateDamage(ref float damage)
     {
         damage /= 2;
     }
