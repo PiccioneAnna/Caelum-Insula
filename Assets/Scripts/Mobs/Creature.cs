@@ -54,7 +54,8 @@ public class Creature : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(
+        // cuts out z so it stays 0 for rendering purposes
+        transform.position = Vector2.MoveTowards(
             transform.position,
             player.position,
             speed * Time.deltaTime
@@ -111,6 +112,11 @@ public class Creature : MonoBehaviour, IDamageable
     /// </summary>
     protected void UpdateCreatureUI()
     {
+        bool vis = health.currVal < health.maxVal;
+
+        hpBarExternal.gameObject.SetActive(vis);
+
         hpBarExternal.Set(health.currVal, health.maxVal);
+
     }
 }

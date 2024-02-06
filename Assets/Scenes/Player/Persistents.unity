@@ -9141,6 +9141,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4952928858995480321, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
+      propertyPath: m_CameraType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5537667021204656303, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
       propertyPath: m_Follow
       value: 
