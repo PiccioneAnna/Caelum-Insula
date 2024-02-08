@@ -37,8 +37,6 @@ namespace Inventory
         void Start()
         {
             inventoryManager = this;
-
-            ChangeSelectedSlot(0);
         }
 
         // Update is called once per frame
@@ -51,6 +49,7 @@ namespace Inventory
                 {
                     selectedSlot = selectedSlotIndex;
                     inventorySlots[selectedSlot].Select();
+                    ChangeSelectedSlot(0);
                 }
 
                 if (Input.inputString != null) { HandleScroll(); }
