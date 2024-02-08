@@ -24,20 +24,23 @@ namespace ToolActions
     [CreateAssetMenu(menuName = "Data/Tool Action/Enviro Hit")]
     public class EnviroHit : Base
     {
-        [SerializeField] float sizeOfInteractableArea = 1;
+        [SerializeField] float sizeOfInteractableArea = 5;
         [SerializeField] List<ResourceType> canHitNodesOfType;
         public override bool OnApply(Vector2 worldPoint)
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(worldPoint, sizeOfInteractableArea);
 
-            Debug.Log("Enviro Hit");
-
             foreach (Collider2D c in colliders)
             {
+                Debug.Log("Collider found");
+
                 if(c.TryGetComponent<Resource>(out var hit))
                 {
+                    Debug.Log("Resource Found");
+
                     if (canHitNodesOfType.Contains(hit.nodeType))
                     {
+                        Debug.Log("Enviro Hit");
                         hit.Hit();
                         return true;
                     }

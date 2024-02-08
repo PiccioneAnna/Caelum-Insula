@@ -6,6 +6,11 @@ using UnityEngine;
 public class Resource : MonoBehaviour
 {
     #region Fields
+    [Header("Components")]
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+    public Sprite[] sprites;
+
     [Header("Resource Stats")]
     [HideInInspector] public Resource instance;
     public Stat health;
@@ -21,6 +26,10 @@ public class Resource : MonoBehaviour
     private int multplierX, multplierY;
     public int maxDropCount, minDropCount;
     private int dropCount;
+
+    [Header("Behaviors")]
+    public bool multiSprite = false;
+
     #endregion
 
 
@@ -42,9 +51,28 @@ public class Resource : MonoBehaviour
         // idk if i need this rn but ill keep it for later
     }
 
+    public void HandleMultipleSprites()
+    {
+        if (spriteRenderer != null && sprites != null && sprites.Length > 0)
+        {
+            int i = random.Next(sprites.Length);
+
+            spriteRenderer.sprite = sprites[i];
+        }
+    }
+   
+
+    public void Shake()
+    {
+        Debug.Log("Shake object");
+        animator.SetTrigger("Shake");
+    }
+
     public void Hit()
     {
         health.currVal--;
+
+        Shake();
 
         if (health.currVal <= 0)
         {
@@ -55,8 +83,8 @@ public class Resource : MonoBehaviour
                 drop = droppedObjs[random.Next(droppedObjs.Length)];
 
                 // Randomized drop positoning
-                offsetX = (float)random.NextDouble() / 4;
-                offsetY = (float)random.NextDouble() / 8;
+                offsetX = (float)random.NextDouble();
+                offsetY = (float)random.NextDouble();
                 multplierX = offsetX % 2 == 2 ? 1 : -1;
                 multplierY = offsetY % 2 == 2 ? 1 : -1;
 

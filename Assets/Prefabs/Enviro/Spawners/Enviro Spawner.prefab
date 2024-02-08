@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5954500240979075147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52613853639683252}
+  - component: {fileID: 3423696878288477416}
+  - component: {fileID: 1113120516440528096}
+  m_Layer: 0
+  m_Name: Enviro Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52613853639683252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954500240979075147}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3423696878288477416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954500240979075147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff906040c62a40f4d95a674cd7bf6c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpawnCount: 10
+  maxSpawnCount: 100
+  spawnCount: 0
+  enviroSpawner: {fileID: 0}
+  spawnArea: {fileID: 1113120516440528096}
+  objects: []
+  spawnedObjects: []
+  minScale: 0.5
+  maxScale: 2.5
+--- !u!60 &1113120516440528096
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954500240979075147}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 4.0152264, y: 4.7917347}
+      - {x: 0.97648084, y: 10.353592}
+      - {x: 1.2421422, y: 14.728343}
+      - {x: 3.911676, y: 17.439373}
+      - {x: 0.20208919, y: 18.604134}
+      - {x: -5.470126, y: 18.992878}
+      - {x: -11.497426, y: 16.210136}
+      - {x: -10.376779, y: 13.722926}
+      - {x: -10.3994055, y: 12.692573}
+      - {x: -8.699754, y: 3.3004005}
+      - {x: -16.632767, y: -3.5338352}
+      - {x: -21.410366, y: -4.8612957}
+      - {x: -24.850513, y: -1.2664022}
+      - {x: -23.489403, y: 5.0367327}
+      - {x: -17.059895, y: 9.622904}
+      - {x: -13.593814, y: 12.622414}
+      - {x: -10.914805, y: 11.436739}
+      - {x: -12.616699, y: 16.601475}
+      - {x: -21.792501, y: 13.197308}
+      - {x: -29.20031, y: 7.550027}
+      - {x: -29.789747, y: -3.7267475}
+      - {x: -20.314678, y: -14.573728}
+      - {x: 7.5364947, y: -18.073109}
+      - {x: 28.819658, y: -15.026505}
+      - {x: 31.533846, y: -13.995962}
+      - {x: 38.400097, y: -11.095475}
+      - {x: 25.96902, y: -11.040112}
+      - {x: 27.413359, y: -8.414169}
+      - {x: 34.87116, y: -8.087608}
+      - {x: 41.2134, y: -4.1892834}
+      - {x: 41.065475, y: 0.5272751}
+      - {x: 37.485832, y: 8.029732}
+      - {x: 24.691124, y: 14.856288}
+      - {x: 13.087463, y: 17.556232}
+      - {x: 16.632086, y: 5.579488}
+  m_UseDelaunayMesh: 0

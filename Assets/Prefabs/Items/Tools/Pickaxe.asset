@@ -21,9 +21,10 @@ MonoBehaviour:
   iconHighlight: 0
   isWeapon: 0
   isConsumable: 0
+  damage: 2
   tile: {fileID: 0}
   obj: {fileID: 0}
   crop: {fileID: 0}
-  onAction: {fileID: 0}
-  onTileMapAction: {fileID: 11400000, guid: 26e5c36036e550749a690ff8228c9470, type: 2}
+  onAction: {fileID: 11400000, guid: 26e5c36036e550749a690ff8228c9470, type: 2}
+  onTileMapAction: {fileID: 0}
   onItemUsed: {fileID: 0}

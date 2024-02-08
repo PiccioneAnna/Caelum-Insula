@@ -104,9 +104,10 @@ namespace Player
             if(Input.GetMouseButtonDown(0))
             {
                 WeaponAction();
+                character.GetTired(1);
             }
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {             
                 if (!isInteract && !isUIOpen)
                 {
@@ -132,7 +133,7 @@ namespace Player
             ApplyMovement();
 
             // Passive Regen
-            character.Rest(.05f);
+            character.Rest(.10f);
             character.Heal(.05f);
         }
 
@@ -182,7 +183,6 @@ namespace Player
 
             bool complete = selectedItem.onAction.OnApply(position);
 
-
             // Checks if item used can be removed from inventory
             if (complete)
             {
@@ -197,7 +197,6 @@ namespace Player
 
         public void UseToolGrid()
         {
-
             if (selectable)
             {
                 if (selectedItem == null)
@@ -282,18 +281,17 @@ namespace Player
         {
             selectedItem = inventoryManager.selectedItem;
 
-            // Checks if grid needs to be displayed
-            if (selectedItem == null || selectedItem.usesGrid)
-            {
-                useGrid = true;
-                CanSelectCheck();
-                SelectTile();
-            }
-            else
+            if (selectedItem == null || !selectedItem.usesGrid)
             {
                 useGrid = false;
                 markerManager.Show(false);
+                return;
             }
+
+            // Checks if grid needs to be displayed
+            useGrid = true;
+            CanSelectCheck();
+            SelectTile();
         }
         public void Attack(float damage)
         {

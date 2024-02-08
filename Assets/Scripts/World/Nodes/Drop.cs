@@ -10,7 +10,7 @@ public class Drop : MonoBehaviour
 
     [SerializeField] float speed = 2f;
     [SerializeField] float pickUpDistance = 3.5f;
-    [SerializeField] float ttl = 10f;
+    //[SerializeField] float ttl = 10f;
 
     private void Awake()
     {

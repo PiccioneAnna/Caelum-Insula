@@ -5,15 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Static/Air.unity
-    guid: 1230d0e81a186d346b594334c61d8a2e
+    path: Assets/Scenes/UI/Main Menu.unity
+    guid: bd508f74ff41bcf4691cc2a40a4a7289
+  - enabled: 1
+    path: Assets/Scenes/Player/Home.unity
+    guid: 0d6648d3fa3fa074b89c0402052cbcd0
+  - enabled: 1
+    path: Assets/Scenes/Player/Persistents.unity
+    guid: d4ab852ce2379964688d1aea82c0ad5d
   - enabled: 1
     path: Assets/Scenes/Static/Center.unity
     guid: dcf78125df2202b4780b3a23ce0c65a8
+  - enabled: 1
+    path: Assets/Scenes/Static/Air.unity
+    guid: 1230d0e81a186d346b594334c61d8a2e
   - enabled: 1
     path: Assets/Scenes/Static/Earth.unity
     guid: 36ff4c3af5d58d0409116507069f4c9a
@@ -36,6 +42,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Static/Water.unity
     guid: 40b0066a1c8a56245a43de61cbb6beb4
   - enabled: 0
-    path: Assets/Scenes/Player/Persistents.unity
-    guid: d4ab852ce2379964688d1aea82c0ad5d
+    path: Assets/Scenes/SampleScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects: {}
