@@ -6,6 +6,7 @@ using UnityEngine;
 /// <summary>
 /// This class serves as a base class for ALL in game mobs
 /// </summary>
+[RequireComponent(typeof(Damageable))]
 public class Creature : MonoBehaviour, IDamageable
 {
     #region Fields
