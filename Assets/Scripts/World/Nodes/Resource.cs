@@ -1,6 +1,8 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UI;
 using UnityEngine;
 
 public class Resource : MonoBehaviour
@@ -10,6 +12,8 @@ public class Resource : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     public Sprite[] sprites;
+    public StatusBar healthBar;
+    public TMP_Text healthValueText;
 
     [Header("Resource Stats")]
     [HideInInspector] public Resource instance;
@@ -61,6 +65,17 @@ public class Resource : MonoBehaviour
         }
     }
    
+    public void UpdateHealthBar()
+    {
+        if(healthBar == null || healthValueText == null) { return; }
+
+        bool vis = health.currVal < health.maxVal;
+
+        healthBar.gameObject.SetActive(vis);
+        healthValueText.gameObject.SetActive(vis);
+
+        healthBar.Set(health.currVal, health.maxVal);
+    }
 
     public void Shake()
     {
@@ -71,7 +86,7 @@ public class Resource : MonoBehaviour
     public void Hit()
     {
         health.currVal--;
-
+        UpdateHealthBar();
         Shake();
 
         if (health.currVal <= 0)

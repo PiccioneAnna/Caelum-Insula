@@ -34,7 +34,49 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Fire Bunny Animator
   serializedVersion: 5
-  m_AnimatorParameters: []
+  m_AnimatorParameters:
+  - m_Name: isSleeping
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: isEating
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Hurt
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Attack
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Die
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Horizontal
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Vertical
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -59,38 +101,41 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1199345948907136588}
-    m_Position: {x: 435.5501, y: 179.56006, z: 0}
+    m_Position: {x: 980, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6041444551594245306}
-    m_Position: {x: 470.5501, y: 244.56006, z: 0}
+    m_Position: {x: 670, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8624901904131065105}
-    m_Position: {x: 505.5501, y: 309.56006, z: 0}
+    m_Position: {x: 380, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1336844797523151179}
-    m_Position: {x: 540.5501, y: 374.56006, z: 0}
+    m_Position: {x: 860, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4072111632980348976}
-    m_Position: {x: 575.5501, y: 439.56006, z: 0}
+    m_Position: {x: 860, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6432992753001708319}
-    m_Position: {x: 610.5501, y: 504.56006, z: 0}
+    m_Position: {x: 1090, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3422416344918350951}
-    m_Position: {x: 660, y: 560, z: 0}
+    m_Position: {x: 650, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7197565241668139968}
-    m_Position: {x: 695, y: 625, z: 0}
+    m_Position: {x: 670, y: 540, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 4069078079701653765}
+    m_Position: {x: 30, y: 260, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_AnyStatePosition: {x: 1530, y: 540, z: 0}
+  m_EntryPosition: {x: -130, y: 130, z: 0}
+  m_ExitPosition: {x: 1530, y: 610, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 1199345948907136588}
+  m_DefaultState: {fileID: 4069078079701653765}
 --- !u!1102 &1199345948907136588
 AnimatorState:
   serializedVersion: 6
@@ -138,6 +183,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: fe0809a85332f3f4ba915ad0b1cb8cb5, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &4069078079701653765
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FB_Idle
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 0f903721ca45659458f12a9b1573cec7, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
