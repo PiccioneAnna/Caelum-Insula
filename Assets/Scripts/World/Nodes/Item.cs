@@ -1,6 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using Data;
+using System;
+
+[Serializable]
+public struct ItemForPickup
+{
+    [SerializeField] public Item item;
+    public int count;
+}
 
 namespace Data
 {

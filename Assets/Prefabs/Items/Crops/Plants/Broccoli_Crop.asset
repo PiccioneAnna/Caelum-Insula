@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37a1ac04979baf94aaea61f9c1f7a42b, type: 3}
-  m_Name: Hoe
+  m_Script: {fileID: 11500000, guid: 3a00516d2dbb1a64e8db0bc29c18f515, type: 3}
+  m_Name: Broccoli_Crop
   m_EditorClassIdentifier: 
-  canHoe:
-  - {fileID: 11400000, guid: e549a80b4036c8a4fb5680f7dbb97a36, type: 2}
+  timeToGrow: 10
+  yield: {fileID: 0}
+  seeds: {fileID: 0}
+  count: 1
+  multiHarvest: 0
+  sprites: []
+  growthStageTime: 

@@ -54,7 +54,7 @@ namespace Player
         [Header("Data")]
         Vector3Int selectedTilePosition;
         public Data.Item selectedItem;
-        public Data.Item[] itemsToPickup;
+        public ItemForPickup[] itemsToPickup;
 
         [SerializeField] ToolActions.Base onTilePickUp;
         [SerializeField] ItemHighlight itemHighlight;
@@ -252,14 +252,17 @@ namespace Player
         #region Interactions
         public void PickupItem(int id)
         {
-            inventoryManager.AddItem(itemsToPickup[id]);
+            inventoryManager.AddItem(itemsToPickup[id].item);
         }
         public void PickupItemList()
         {
             // Items player starts out with
             for (int i = 0; i < itemsToPickup.Length; i++)
             {
-                PickupItem(i);
+                for(int j = 0; j < itemsToPickup[i].count; j++)
+                {
+                    PickupItem(i);
+                }
             }
         }
         private void SelectTile()
@@ -316,7 +319,6 @@ namespace Player
             }
         }
         #endregion
-
 
         #region Checks
         // Method checks if it is possible for the user to select the tile 

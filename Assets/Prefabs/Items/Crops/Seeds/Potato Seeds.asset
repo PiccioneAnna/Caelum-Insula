@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d864ca7e9147c4aa5f9a291cb6d6fa, type: 3}
+  m_Name: Potato Seeds
+  m_EditorClassIdentifier: 
+  itemName: Potato Seeds
+  id: 
+  itemType: 0
+  image: {fileID: 965180273, guid: 2d79ca0d7651cd945870868d7b61f5f7, type: 3}
+  usesGrid: 1
+  stackable: 1
+  iconHighlight: 0
+  isWeapon: 0
+  isConsumable: 0
+  damage: 0
+  tile: {fileID: 0}
+  obj: {fileID: 0}
+  crop: {fileID: 11400000, guid: 14965a231cc7c5046b6e710cbba3ca8a, type: 2}
+  onAction: {fileID: 0}
+  onTileMapAction: {fileID: 11400000, guid: f0cdae2776ad60d49a6f87feef0c5cb8, type: 2}
+  onItemUsed: {fileID: 0}
