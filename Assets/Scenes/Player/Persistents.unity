@@ -6514,6 +6514,7 @@ MonoBehaviour:
   tempTile: {fileID: 0}
   markedCellPosition: {x: 0, y: 0, z: 0}
   holdStartPosition: {x: 0, y: 0, z: 0}
+  multiPositions: []
   isBuildMode: 0
   isShow: 1
   isMultiple: 0
@@ -8487,7 +8488,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   dayLightColor: {r: 1, g: 1, b: 1, a: 1}
   text: {fileID: 720227353}
-  timeScale: 60
+  timeScale: 500
   startAtTime: 28800
   globalLight: {fileID: 0}
 --- !u!114 &1960111482
@@ -9341,11 +9342,11 @@ PrefabInstance:
       objectReference: {fileID: 1969192327}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: sizeOfIA.x
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: sizeOfIA.y
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: maxDistance
@@ -9355,6 +9356,10 @@ PrefabInstance:
       propertyPath: _inventoryUI
       value: 
       objectReference: {fileID: 351971581}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: onTilePickUp
+      value: 
+      objectReference: {fileID: 11400000, guid: 01e6ba8180050024ea939462ab897ed2, type: 2}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: itemHighlight
       value: 

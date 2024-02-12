@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -28,6 +29,8 @@ namespace TilemapScripts
         public Vector3Int holdStartPosition;
         Vector3Int oldCellPosition;
 
+        public List<Vector3Int> multiPositions;
+
         [Header("Conditional States")]
         public bool isBuildMode = false;
         public bool isShow;
@@ -46,6 +49,7 @@ namespace TilemapScripts
             Show(isShow);
             instance = this;
             isMultiple = false;
+            multiPositions = new List<Vector3Int>();
         }
 
         private void Start()
@@ -149,12 +153,20 @@ namespace TilemapScripts
 
         private void DrawBounds(BoundsInt b, Tilemap target, TileBase tile)
         {
+            Vector3Int tempPos = new Vector3Int();
+
             // Draws bounds on given map
             for (int x = b.xMin; x <= b.xMax; x++)
             {
                 for (int y = b.yMin; y <= b.yMax; y++)
                 {
-                    target.SetTile(new Vector3Int(x, y, 0), tile);
+                    tempPos = new Vector3Int(x, y, 0);
+                    target.SetTile(tempPos, tile);
+
+                    if (!multiPositions.Contains(tempPos))
+                    {
+                        multiPositions.Add(tempPos);
+                    }
                 }
             }
         }
@@ -176,6 +188,7 @@ namespace TilemapScripts
         public void ClearTilemap(Tilemap target)
         {
             target.ClearAllTiles();
+            multiPositions.Clear();
         }
         #endregion
     }

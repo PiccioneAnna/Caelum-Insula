@@ -12,7 +12,7 @@ namespace ToolActions
         Tilemap tilemap;
         public override bool OnApplyToTileMap(Vector3Int gridPosition, TilemapScripts.Reader tilemapReadController, Item item)
         {
-            tilemap = GameManager.Instance.cropsManager.parentTilemap;
+            tilemap = GameManager.Instance.cropsManager.targetTilemap;
 
             if (tilemap == null)
             {

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Potato Seeds
   id: 
   itemType: 0
-  image: {fileID: 965180273, guid: 2d79ca0d7651cd945870868d7b61f5f7, type: 3}
+  image: {fileID: 2083085888, guid: 0c8ff86a51fa2704692e74766132e962, type: 3}
   usesGrid: 1
   stackable: 1
   iconHighlight: 0

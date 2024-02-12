@@ -8,8 +8,8 @@ public class Drop : MonoBehaviour
     private Controller player;
     public float distance;
 
-    [SerializeField] float speed = 2f;
-    [SerializeField] float pickUpDistance = 3.5f;
+    [SerializeField] float speed = 4f;
+    [SerializeField] float pickUpDistance = 5.5f;
     //[SerializeField] float ttl = 10f;
 
     private void Awake()
@@ -32,7 +32,7 @@ public class Drop : MonoBehaviour
             speed * Time.deltaTime
             );
 
-        if (distance < .1f)
+        if (distance < .5f)
         {
             if (player.inventoryManager.AddItem(item))
             {

@@ -185,9 +185,10 @@ namespace Inventory
                 Slot inventorySlot = null;
                 foreach (Slot slot in inventorySlots)
                 {
-                    if (slot.item == item)
+                    if (slot.item.item != null && slot.item.item == item)
                     {
                         inventorySlot = slot;
+                        break;
                     }
                 }
                 if (inventorySlot == null) { return; }
@@ -197,6 +198,8 @@ namespace Inventory
                 if (inventorySlot.item == null) { return; }
 
                 inventorySlot.item.count -= count;
+
+                Debug.Log("Removing 1 item");
 
                 inventorySlot.item.RefreshCount();
 

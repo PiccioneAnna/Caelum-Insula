@@ -21,12 +21,15 @@ namespace TilemapScripts
 
         private void Start()
         {
+            ClearContainer(); //temp
+
             GameManager.Instance.cropsManager = this; // Reporting this to this to prevent multi checks
             inventoryManager = GameManager.Instance.inventory;
             onTimeTick += Tick;
             Init();
             FindCorrectTilemaps();
             VisualizeMap();
+        
         }
 
         public void FindCorrectTilemaps()
@@ -42,6 +45,11 @@ namespace TilemapScripts
             {
                 container.crops[i].renderer = null;
             }
+        }
+
+        private void ClearContainer()
+        {
+            container.Clear();
         }
 
         private void VisualizeMap()
@@ -97,7 +105,6 @@ namespace TilemapScripts
 
         public void Plow(Vector3Int position)
         {
-            if (Check(position) == true) { return; }
             CreatePlowedTile(position);
         }
 
@@ -117,8 +124,6 @@ namespace TilemapScripts
             tile.crop = toSeed;
 
             inventoryManager.RemoveItem(toSeed.seeds);
-
-            Tick();
         }
 
         public void PickUp(Vector3Int gridPosition)
@@ -131,7 +136,7 @@ namespace TilemapScripts
 
             if (tile.Complete)
             {
-                ItemSpawnManager.instance.SpawnItem(new Vector3(p.x, p.y, 0), tile.crop.yield);
+                ItemSpawnManager.instance.SpawnItem(new Vector3(p.x + .5f, p.y + .5f, 0), tile.crop.yield);
 
                 Debug.Log("Crop yielded");
 
@@ -158,6 +163,7 @@ namespace TilemapScripts
                 // Creates a hidden gameobject on the plowed dirt that will render any crop sprites
                 UnityEngine.GameObject go = Instantiate(cropsSpritePrefab, transform);
                 go.transform.position = targetTilemap.CellToWorld(new Vector3Int(cropTile.position.x, cropTile.position.y, 0));
+                go.transform.position += new Vector3(.5f, .5f);
                 cropTile.renderer = go.GetComponent<SpriteRenderer>();
             }
 

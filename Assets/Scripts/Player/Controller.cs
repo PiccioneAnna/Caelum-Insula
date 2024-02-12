@@ -37,6 +37,8 @@ namespace Player
         [Header("Conditions")]
         private bool useGrid;
         private bool selectable;
+        private bool multiGrid;
+        private bool place;
         public bool isInteract = false;
         public bool isUIOpen = false;
 
@@ -45,14 +47,16 @@ namespace Player
         private float _currSpeed;
         public float _sprintMultiplier = 1.6f;
         public Vector2 sizeOfIA; // static for all tools for now
-        float maxDistance = 1.5f;
+        float maxDistance;
         private Vector2 _movementInput;
+        private Vector2 _mousePos;
         private Vector2 _moveDirection = Vector2.zero;
         public Character character;
         private float offsetDistance = 1.2f;
 
         [Header("Data")]
         Vector3Int selectedTilePosition;
+        List <Vector3Int> selectedTiles;
         public Data.Item selectedItem;
         public ItemForPickup[] itemsToPickup;
 
@@ -66,6 +70,8 @@ namespace Player
         {
             controller = this;
             playerControls = new();
+            maxDistance = sizeOfIA.x * sizeOfIA.y;
+            selectedTiles = new List<Vector3Int>();
 
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
@@ -113,17 +119,20 @@ namespace Player
                 {
                     Interact();
 
-                    if(!isInteract && useGrid)
-                    {
-                        UseToolGrid();
-                        character.GetTired(1);
-                    }
-                    else if (!isInteract)
+                    if (!isInteract)
                     {
                         UseToolWorld();
                         character.GetTired(1);
                     }
+                }
+            }
 
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (!isInteract && useGrid)
+                {
+                    UseToolGrid();
+                    character.GetTired(1);
                 }
             }
         }
@@ -178,7 +187,12 @@ namespace Player
         {
             Vector2 position = _rb.position;
 
-            if (selectedItem == null) { return false; }
+            if (selectedItem == null)
+            {
+                PickUpTile();
+                return true;
+            }
+
             if (selectedItem.onAction == null) { return false; }
 
             bool complete = selectedItem.onAction.OnApply(position);
@@ -199,23 +213,33 @@ namespace Player
         {
             if (selectable)
             {
-                if (selectedItem == null)
-                {
-                    PickUpTile();
-                    return;
-                }
                 if (selectedItem.onTileMapAction == null) { return; }
 
-                bool complete = selectedItem.onTileMapAction.OnApplyToTileMap(selectedTilePosition, tilemapReader, selectedItem);
+                int count = multiGrid ? selectedTiles.Count : 1;
 
-                // Checks if item used can be removed from inventory
-                if (complete)
+                Debug.Log(count);
+
+                for (int i = 0; i < count; i++)
                 {
-                    if (selectedItem.onItemUsed != null)
+                    if (multiGrid)
                     {
-                        selectedItem.onItemUsed.OnItemUsed(selectedItem, inventoryManager);
+                        selectedTilePosition = selectedTiles[i];
+                    }
+
+                    bool complete = selectedItem.onTileMapAction.OnApplyToTileMap(selectedTilePosition, tilemapReader, selectedItem);
+
+                    // Checks if item used can be removed from inventory
+                    if (complete)
+                    {
+                        if (selectedItem.onItemUsed != null)
+                        {
+                            selectedItem.onItemUsed.OnItemUsed(selectedItem, inventoryManager);
+                        }
                     }
                 }
+
+                multiGrid = false;
+                selectedTiles.Clear();
             }
         }
 
@@ -225,7 +249,7 @@ namespace Player
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 position = _rb.position;
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfIA.x);
 
                 foreach (Collider2D c in colliders)
@@ -273,12 +297,17 @@ namespace Player
         private void PickUpTile()
         {
             if (onTilePickUp == null) { return; }
-            onTilePickUp.OnApplyToTileMap(selectedTilePosition, tilemapReader, null);
+            onTilePickUp.OnApply(new Vector2(_mousePos.x, _mousePos.y - .5f));
         }
         private void Marker()
         {
             markerManager.markedCellPosition = selectedTilePosition;
             itemHighlight.cellPosition = selectedTilePosition;
+
+            multiGrid = markerManager.isMultiple;
+            place = markerManager.isPlace;
+
+            if(multiGrid) { selectedTiles = markerManager.multiPositions; }
         }
         private void HandleSelection()
         {

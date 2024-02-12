@@ -16,10 +16,5 @@ namespace ToolAction
 
             return true;
         }
-
-        public override void OnItemUsed(Item usedItem, Inventory.Manager inventory)
-        {
-            inventory.RemoveItem(usedItem);
-        }
     }
 }

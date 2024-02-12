@@ -74,6 +74,8 @@ public class Resource : MonoBehaviour
         healthBar.gameObject.SetActive(vis);
         healthValueText.gameObject.SetActive(vis);
 
+        healthValueText.text = health.currVal.ToString() + "/" + health.maxVal.ToString();
+
         healthBar.Set(health.currVal, health.maxVal);
     }
 
@@ -98,8 +100,8 @@ public class Resource : MonoBehaviour
                 drop = droppedObjs[random.Next(droppedObjs.Length)];
 
                 // Randomized drop positoning
-                offsetX = (float)random.NextDouble();
-                offsetY = (float)random.NextDouble();
+                offsetX = (float)random.NextDouble() / 2;
+                offsetY = (float)random.NextDouble() / 4;
                 multplierX = offsetX % 2 == 2 ? 1 : -1;
                 multplierY = offsetY % 2 == 2 ? 1 : -1;
 
