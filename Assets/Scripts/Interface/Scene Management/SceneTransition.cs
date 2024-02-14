@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 public enum TransitionType
 {
     Warp,
-    Scene
+    Scene,
+    Dungeon
 }
 
 public class Transition : MonoBehaviour
@@ -39,7 +40,6 @@ public class Transition : MonoBehaviour
             if (sceneNameToTransition == SceneEnum.Null) { return; }
 
             playerPosition = collision.transform.position;
-            CalculateTransitionDistance();
             InitiateTransition(collision.transform);
         }
     }
@@ -63,6 +63,11 @@ public class Transition : MonoBehaviour
                     );
                 break;
             case TransitionType.Scene:
+                CalculateTransitionDistance();
+                GameManager.Instance.sceneManager.InitSwitchScene(EnumHelper.GetDescription(sceneNameToTransition), targetPosition);
+                break;
+            case TransitionType.Dungeon:
+                FindSpawnArea();
                 GameManager.Instance.sceneManager.InitSwitchScene(EnumHelper.GetDescription(sceneNameToTransition), targetPosition);
                 break;
         }
@@ -71,6 +76,11 @@ public class Transition : MonoBehaviour
     private void CalculateTransitionDistance()
     {
         targetPosition = playerPosition + (offsetPosition * 5f);
+    }
+
+    private void FindSpawnArea()
+    {
+        targetPosition = new Vector3(50, 50, 0);
     }
 }
 

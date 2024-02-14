@@ -28,6 +28,10 @@ public enum SceneEnum
     Home,
     [Description("Other")]
     Other,
+    [Description("Random Dungeon")]
+    RandomDungeon,
+    [Description("Random Island")]
+    RandomIsland,
     [Description("Null")]
     Null
 }
