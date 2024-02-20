@@ -27,6 +27,8 @@ namespace Data
         public bool stackable = true;
         public bool iconHighlight = false;
         public bool isWeapon;
+        public bool isMelee;
+        public bool isRanged;
         public bool isConsumable;
 
         [Header("Stats")]
@@ -36,6 +38,7 @@ namespace Data
         public TileBase tile;
         public GameObject obj;
         public Crop crop;
+        public GameObject projectile;
 
         [Header("Actions")]
         public ToolActions.Base onAction;
@@ -47,6 +50,7 @@ namespace Data
             Crop,
             Material,
             Tool,
+            Weapon,
             PlaceableObject,
             Consumable
         }

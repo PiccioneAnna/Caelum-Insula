@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Sword
   id: 
-  itemType: 2
+  itemType: 3
   image: {fileID: 21300000, guid: 678f859389fc142418f73199429f065d, type: 3}
   usesGrid: 0
   stackable: 0
   iconHighlight: 0
   isWeapon: 1
+  isMelee: 1
+  isRanged: 0
   isConsumable: 0
   damage: 10
   tile: {fileID: 0}

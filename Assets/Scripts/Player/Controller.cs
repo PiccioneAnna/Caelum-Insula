@@ -2,6 +2,7 @@ using Interacts;
 using Inventory;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TilemapScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,8 @@ namespace Player
         [HideInInspector] public CapsuleCollider2D _collider;
         [HideInInspector] public Animator _animator;
         [HideInInspector] public PlayerControls playerControls;
+        public SpriteRenderer equipedSprite;
+        public WeaponPoint weaponPoint;
 
         [Header("Manager References")]
         [HideInInspector] public GameManager gameManager;
@@ -39,6 +42,9 @@ namespace Player
         private bool selectable;
         private bool multiGrid;
         private bool place;
+        public bool canFire;
+        private float attackTimer = 0f;
+        private float timeBetweenShots = .5f;
         public bool isInteract = false;
         public bool isUIOpen = false;
 
@@ -72,6 +78,7 @@ namespace Player
             playerControls = new();
             maxDistance = sizeOfIA.x * sizeOfIA.y;
             selectedTiles = new List<Vector3Int>();
+            weaponPoint = GetComponentInChildren<WeaponPoint>();
 
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
@@ -100,6 +107,7 @@ namespace Player
             _moveDirection = move.ReadValue<Vector2>();
 
             HandleSelection();
+            RangedAttackMath();
 
             // Menu related
             if (Keyboard.current.iKey.wasReleasedThisFrame) 
@@ -313,6 +321,13 @@ namespace Player
         {
             selectedItem = inventoryManager.selectedItem;
 
+            if (selectedItem != null && 
+                selectedItem.image != null) { equipedSprite.sprite = selectedItem.image; }
+            else
+            {
+                equipedSprite.sprite = null;
+            }
+
             if (selectedItem == null || !selectedItem.usesGrid)
             {
                 useGrid = false;
@@ -326,6 +341,22 @@ namespace Player
             SelectTile();
         }
         public void Attack(float damage)
+        {
+            if(selectedItem.isMelee)
+            {
+                MeleeAttack(damage);
+            }
+            else if(selectedItem.isRanged) 
+            {
+                if (canFire)
+                {
+                    RangedAttack(damage);
+                    canFire = false;
+                }
+            }
+        }
+
+        private void MeleeAttack(float damage)
         {
             Vector2 position = _rb.position + _moveDirection * offsetDistance;
 
@@ -344,9 +375,37 @@ namespace Player
                 if (damageable1 != null)
                 {
                     damageable1.TakeDamage(damage);
+                    break;
                 }
             }
         }
+
+        // static damage for now got lazy
+        private void RangedAttack(float damage)
+        {
+            if(selectedItem.projectile != null)
+            {
+                weaponPoint.Fire(selectedItem.projectile, damage);
+            }
+            else
+            {
+                Debug.Log("Projectile prefab not set for" + selectedItem.name);
+            }
+        }
+
+        private void RangedAttackMath()
+        {
+            if (!canFire)
+            {
+                attackTimer += Time.deltaTime;
+                if(attackTimer > timeBetweenShots)
+                {
+                    canFire = true;
+                    attackTimer = 0;
+                }
+            }
+        }
+
         #endregion
 
         #region Checks
