@@ -20,6 +20,9 @@ public class Transition : MonoBehaviour
     [SerializeField] SceneEnum sceneNameToTransition;
     [SerializeField] Vector3 offsetPosition;
 
+    [SerializeField] List<GameObject> tbDisabled;
+    [SerializeField] List<GameObject> tbEnabled;
+
     [SerializeField] List<GameObject> transparentDependecies;
 
     public int newSortLayer;
@@ -83,6 +86,18 @@ public class Transition : MonoBehaviour
         {
             o.SetActive(!o.activeSelf);
         }
+
+        foreach (GameObject o in tbDisabled)
+        {
+            o.layer = LayerMask.NameToLayer("DisabledPhysics");
+            EnumHelper.SetLayerAllChildren(o.transform, o.layer);
+        }
+
+        foreach (GameObject o in tbEnabled)
+        {
+            o.layer = LayerMask.NameToLayer("Default");
+            EnumHelper.SetLayerAllChildren(o.transform, o.layer);
+        }
     }
 
     private void FindSpawnArea()
@@ -115,5 +130,13 @@ public static class EnumHelper
         }
 
         return description;
+    }
+    public static void SetLayerAllChildren(Transform root, int layer)
+    {
+        var children = root.GetComponentsInChildren<Transform>(includeInactive: true);
+        foreach (var child in children)
+        {
+            child.gameObject.layer = layer;
+        }
     }
 }

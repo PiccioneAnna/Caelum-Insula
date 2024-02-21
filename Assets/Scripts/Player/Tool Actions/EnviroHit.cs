@@ -32,6 +32,9 @@ namespace ToolActions
 
             foreach (Collider2D c in colliders)
             {
+                // check prevents disabled objects from being interacted with
+                if (c.gameObject.layer == LayerMask.NameToLayer("DisabledPhysics")) { break; }
+
                 Debug.Log("Collider found");
 
                 if(c.TryGetComponent<Resource>(out var hit))

@@ -48,6 +48,8 @@ public class EnviroSpawner : MonoBehaviour
         {
             SpawnObject(RandomObjectPrefab());
         }
+
+        EnumHelper.SetLayerAllChildren(transform, gameObject.layer);
     }
 
     // Update is called once per frame
