@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18d864ca7e9147c4aa5f9a291cb6d6fa, type: 3}
-  m_Name: Leaves
+  m_Name: Return Home Wand
   m_EditorClassIdentifier: 
-  itemName: Stone
+  itemName: Return Home Wand
   id: 
-  itemType: 1
-  image: {fileID: 21300000, guid: 5d497537d5669304497002cd8478a07c, type: 3}
+  itemType: 2
+  image: {fileID: 21300000, guid: af601f26a011e7146ad45ddf3ceb73d1, type: 3}
   usesGrid: 0
-  stackable: 1
+  stackable: 0
   iconHighlight: 0
   isWeapon: 0
   isMelee: 0
@@ -28,6 +28,6 @@ MonoBehaviour:
   obj: {fileID: 0}
   crop: {fileID: 0}
   projectile: {fileID: 0}
-  onAction: {fileID: 0}
+  onAction: {fileID: 11400000, guid: b3bfda69ea9804c45a47dcc33d347288, type: 2}
   onTileMapAction: {fileID: 0}
   onItemUsed: {fileID: 0}

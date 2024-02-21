@@ -19,6 +19,7 @@ namespace Player
 
         [Header("UI References")]
         public GameObject _inventoryUI;
+        public GameObject _menuUI;
 
         [HideInInspector] public Rigidbody2D _rb;
         [HideInInspector] public CapsuleCollider2D _collider;
@@ -45,8 +46,11 @@ namespace Player
         public bool canFire;
         private float attackTimer = 0f;
         private float timeBetweenShots = .5f;
+
         public bool isInteract = false;
-        public bool isUIOpen = false;
+        public bool isInventoryOpen = false;
+        public bool isMenuOpen = false;
+        public bool isUIOpen;
 
         [Header("Stats")]
         public float _speed = 3f;
@@ -109,11 +113,7 @@ namespace Player
             HandleSelection();
             RangedAttackMath();
 
-            // Menu related
-            if (Keyboard.current.iKey.wasReleasedThisFrame) 
-            { 
-                OpenInventory();
-            }
+            HandleUIInteraction();
 
             if(Input.GetMouseButtonDown(0))
             {
@@ -175,6 +175,29 @@ namespace Player
         #endregion
 
         #region UI
+        protected void HandleUIInteraction()
+        {
+            // Menu related
+            if (Keyboard.current.iKey.wasReleasedThisFrame)
+            {
+                OpenInventory();
+            }
+
+            if (Keyboard.current.escapeKey.wasReleasedThisFrame)
+            {
+                if (isInventoryOpen)
+                {
+                    OpenInventory();
+                }
+                else
+                {
+                    OpenPauseMenu();
+                }
+            }
+
+            isUIOpen = isInventoryOpen || isMenuOpen;
+        }
+
         /// <summary>
         /// Method for opening the inventory UI
         /// </summary>
@@ -186,7 +209,17 @@ namespace Player
 
             _inventoryUI.SetActive(!isOpen);
 
-            isUIOpen = !isOpen;
+            isInventoryOpen = !isOpen;
+        }
+        protected void OpenPauseMenu()
+        {
+            if (_menuUI == null) { return; }
+
+            bool isOpen = _menuUI.activeSelf;
+
+            _menuUI.SetActive(!isOpen);
+
+            isMenuOpen = !isOpen;
         }
         #endregion
 
@@ -225,7 +258,7 @@ namespace Player
 
                 int count = multiGrid ? selectedTiles.Count : 1;
 
-                Debug.Log(count);
+                //Debug.Log(count);
 
                 for (int i = 0; i < count; i++)
                 {

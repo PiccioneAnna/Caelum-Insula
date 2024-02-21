@@ -14,4 +14,10 @@ public class MainMenu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Home", LoadSceneMode.Single);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Persistents", LoadSceneMode.Additive);
     }
+
+    public void ReturnToMainMenu()
+    {
+        Destroy(GameManager.Instance);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+    }
 }

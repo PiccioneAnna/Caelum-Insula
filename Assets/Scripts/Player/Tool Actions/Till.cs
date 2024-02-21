@@ -1,6 +1,8 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using TilemapScripts;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,27 +12,74 @@ namespace ToolActions
     public class Till : Base
     {
         [SerializeField] List<TileBase> canTill;
-        Tilemap tilemap;
+
+        private Reader reader;
+        private TilemapInfoManager tilemapInfo;
+        private Vector3Int gridPos;
+
+        private bool success;
+
         public override bool OnApplyToTileMap(Vector3Int gridPosition, TilemapScripts.Reader tilemapReadController, Item item)
         {
-            tilemap = GameManager.Instance.cropsManager.parentTilemap;
+            tilemapInfo = GameManager.Instance.tilemapInfoManager;
+            reader = tilemapReadController;
+            gridPos = gridPosition;
 
-            if (tilemap == null) 
+            NullCheck();
+
+            TillCheckTilemap();
+
+            return success;
+        }
+
+        private void TillCheckTilemap()
+        {
+            foreach (Tilemap tilemap in tilemapInfo.grassTileMaps)
             {
-                Debug.Log("Target tilemap not set");
-                return false; 
+                TileBase tileToTill = reader.GetTileBase(tilemap, gridPos);
+
+                if (!canTill.Contains(tileToTill))
+                {
+                    success = false;
+                }
+                else
+                {
+                    success = true;
+                    CheckBelowTile();
+                    GameManager.Instance.cropsManager.Till(gridPos, tilemap);
+                    return;
+                }
+            }
+        }
+
+        private void CheckBelowTile()
+        {
+            Tilemap current = null;
+
+            foreach (Tilemap tilemap in tilemapInfo.dirtTilemaps)
+            {
+                current = tilemap;
+                TileBase tileToTill = reader.GetTileBase(tilemap, gridPos);
+
+                if (tileToTill != null) { return; }
             }
 
-            TileBase tileToTill = tilemapReadController.GetTileBase(tilemap,gridPosition);
-
-            if (!canTill.Contains(tileToTill))
-            {
-                return false;
+            if (tilemapInfo.dirt == null) 
+            { 
+                Debug.Log("Dirt tile not set in info");
+                return;
             }
 
-            GameManager.Instance.cropsManager.Till(gridPosition);
+            GameManager.Instance.cropsManager.ReplaceTile(gridPos, current, tilemapInfo.dirt);
+        }
 
-            return true;
+        private void NullCheck()
+        {
+            if (tilemapInfo == null)
+            {
+                Debug.Log("Tilemap info not found");
+                success = false;
+            }
         }
     }
 }

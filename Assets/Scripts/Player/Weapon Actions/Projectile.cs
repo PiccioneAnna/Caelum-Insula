@@ -45,7 +45,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-        Debug.Log("Collision detected on projectile");
+        //Debug.Log("Collision detected on projectile");
 
         Collider2D[] targets = Physics2D.OverlapBoxAll(transform.position, coli.bounds.size, 0f);
 

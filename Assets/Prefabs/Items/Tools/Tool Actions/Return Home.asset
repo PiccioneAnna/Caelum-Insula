@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37a1ac04979baf94aaea61f9c1f7a42b, type: 3}
-  m_Name: Hoe
+  m_Script: {fileID: 11500000, guid: 0bb5da6afe2e1194284c35b3b2cdab60, type: 3}
+  m_Name: Return Home
   m_EditorClassIdentifier: 
-  canHoe:
-  - {fileID: 11400000, guid: cc34fb15a778b69438502141b5c13c61, type: 2}
+  scene: Home

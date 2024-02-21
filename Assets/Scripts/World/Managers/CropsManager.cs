@@ -1,5 +1,7 @@
 using System;
+using TilemapScripts;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [Serializable]
 public class CropTile
@@ -78,9 +80,19 @@ public class CropsManager : MonoBehaviour
         cropsManager.Plow(position);
     }
 
-    public void Till(Vector3Int position)
+    public void Till(Vector3Int position, Tilemap target)
     {
         TilemapCheck();
-        cropsManager.Till(position);
+        cropsManager.Till(position, target);
+    }
+
+    public void ReplaceTile(Vector3Int position, Tilemap target, TileBase tile)
+    {
+        if (target == null)
+        {
+            return;
+        }
+
+        cropsManager.ReplaceTile(position, target, tile);
     }
 }

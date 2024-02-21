@@ -12,11 +12,9 @@ namespace TilemapScripts
 
         [SerializeField] Inventory.CropsContainer container;
 
-        [SerializeField] TileBase plowed;
-        [SerializeField] TileBase tilled;
+        [SerializeField] TileBase hoedEffect;
 
         public Tilemap targetTilemap;
-        public Tilemap parentTilemap;
         private Inventory.Manager inventoryManager;
 
         private void Start()
@@ -35,7 +33,6 @@ namespace TilemapScripts
         public void FindCorrectTilemaps()
         {
             targetTilemap = GameObject.Find("Crops").GetComponent<Tilemap>();
-            parentTilemap = GameObject.Find("0").GetComponent<Tilemap>();
         }
 
         // Clean up crops in container upon destroy
@@ -108,9 +105,15 @@ namespace TilemapScripts
             CreatePlowedTile(position);
         }
 
-        public void Till(Vector3Int position)
+        // Removes grass from a map
+        public void Till(Vector3Int position, Tilemap target)
         {
-            targetTilemap.SetTile(new Vector3Int(position.x, position.y, 0), tilled);
+            target.SetTile(new Vector3Int(position.x, position.y, 0), null);
+        }
+
+        public void ReplaceTile(Vector3Int position, Tilemap target, TileBase tile)
+        {
+            target.SetTile(new Vector3Int(position.x, position.y, 0), tile);
         }
 
         public void Seed(Vector3Int position, Crop toSeed)
@@ -156,7 +159,7 @@ namespace TilemapScripts
 
         public void VisualizeTile(CropTile cropTile)
         {
-            targetTilemap.SetTile(new Vector3Int(cropTile.position.x, cropTile.position.y, 0), plowed);
+            targetTilemap.SetTile(new Vector3Int(cropTile.position.x, cropTile.position.y, 0), null);
 
             if (cropTile.renderer == null)
             {
@@ -176,6 +179,10 @@ namespace TilemapScripts
             }
         }
 
+        /// <summary>
+        /// What a hoe does, preps a dirt for planting
+        /// </summary>
+        /// <param name="position"></param>
         private void CreatePlowedTile(Vector3Int position)
         {
             CropTile crop = new();
@@ -185,7 +192,7 @@ namespace TilemapScripts
 
             VisualizeTile(crop);
 
-            targetTilemap.SetTile(position, plowed);
+            targetTilemap.SetTile(position, hoedEffect);
         }
     }
 }

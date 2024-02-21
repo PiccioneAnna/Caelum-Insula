@@ -185,7 +185,7 @@ namespace Inventory
                 Slot inventorySlot = null;
                 foreach (Slot slot in inventorySlots)
                 {
-                    if (slot.item.item != null && slot.item.item == item)
+                    if (slot.item != null && slot.item.item != null && slot.item.item == item)
                     {
                         inventorySlot = slot;
                         break;
@@ -199,7 +199,7 @@ namespace Inventory
 
                 inventorySlot.item.count -= count;
 
-                Debug.Log("Removing 1 item");
+                Debug.Log("Removing 1 item, " + inventorySlot.item.count + "left.");
 
                 inventorySlot.item.RefreshCount();
 
@@ -211,6 +211,7 @@ namespace Inventory
             }
             else
             {
+                // Removal of nonstackable items
                 while (count > 0)
                 {
                     count -= 1;
@@ -221,11 +222,10 @@ namespace Inventory
                         if (slot.item == item)
                         {
                             inventorySlot = slot;
+                            inventorySlot.Clear();
                         }
                     }
                     if (inventorySlot == null) { return; }
-
-                    inventorySlot.Clear();
                 }
             }
         }

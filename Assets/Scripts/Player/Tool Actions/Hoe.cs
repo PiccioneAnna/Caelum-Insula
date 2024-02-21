@@ -1,5 +1,6 @@
 using Data;
 using System.Collections.Generic;
+using TilemapScripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,27 +10,52 @@ namespace ToolActions
     public class Hoe : Base
     {
         [SerializeField] List<TileBase> canHoe;
-        Tilemap tilemap;
+
+        private Reader reader;
+        private TilemapInfoManager tilemapInfo;
+        private Vector3Int gridPos;
+
+        private bool success;
+
         public override bool OnApplyToTileMap(Vector3Int gridPosition, TilemapScripts.Reader tilemapReadController, Item item)
         {
-            tilemap = GameManager.Instance.cropsManager.targetTilemap;
+            tilemapInfo = GameManager.Instance.tilemapInfoManager;
+            reader = tilemapReadController;
+            gridPos = gridPosition;
 
-            if (tilemap == null)
+            NullCheck();
+
+            HoeCheckTilemaps();
+
+            return success;
+        }
+
+        private void HoeCheckTilemaps()
+        {
+            foreach (Tilemap tilemap in tilemapInfo.dirtTilemaps)
             {
-                Debug.Log("Target tilemap not set");
-                return false;
+                TileBase tileToPlow = reader.GetTileBase(tilemap, gridPos);
+
+                if (!canHoe.Contains(tileToPlow))
+                {
+                    success = false;
+                }
+                else
+                {
+                    success = true;
+                    GameManager.Instance.cropsManager.Plow(gridPos);
+                    return;
+                }
             }
+        }
 
-            TileBase tileToPlow = tilemapReadController.GetTileBase(tilemap, gridPosition);
-
-            if (!canHoe.Contains(tileToPlow))
+        private void NullCheck()
+        {
+            if (tilemapInfo == null)
             {
-                return false;
+                Debug.Log("Tilemap info not found");
+                success = false;
             }
-
-            GameManager.Instance.cropsManager.Plow(gridPosition);
-
-            return true;
         }
     }
 }
