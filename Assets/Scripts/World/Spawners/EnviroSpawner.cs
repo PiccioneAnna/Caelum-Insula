@@ -70,7 +70,7 @@ public class EnviroSpawner : MonoBehaviour
 
         if(temp.GetComponentInChildren<SpriteRenderer>() != null)
         {
-            Debug.Log("trying to set child");
+            //Debug.Log("trying to set child");
             temp.GetComponentInChildren<SpriteRenderer>().sortingOrder = layer;
         }
 

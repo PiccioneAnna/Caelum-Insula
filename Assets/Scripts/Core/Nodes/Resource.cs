@@ -11,6 +11,7 @@ public class Resource : MonoBehaviour
     [Header("Components")]
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer shadowRenderer;
     public Sprite[] sprites;
     public StatusBar healthBar;
     public TMP_Text healthValueText;
@@ -42,8 +43,13 @@ public class Resource : MonoBehaviour
     {
         instance = this;
         health.SetToMax();
-
         random = new System.Random();
+
+        if (multiSprite)
+        {
+            HandleMultipleSprites();
+        }
+
         dropCount = random.Next(maxDropCount) + minDropCount + (int)transform.localScale.x;
         position = transform.position;
         rotation = transform.rotation;
@@ -57,11 +63,12 @@ public class Resource : MonoBehaviour
 
     public void HandleMultipleSprites()
     {
-        if (spriteRenderer != null && sprites != null && sprites.Length > 0)
+        if (spriteRenderer != null && sprites.Length > 0)
         {
             int i = random.Next(sprites.Length);
 
             spriteRenderer.sprite = sprites[i];
+            //shadowRenderer.sprite = spriteRenderer.sprite;
         }
     }
    
