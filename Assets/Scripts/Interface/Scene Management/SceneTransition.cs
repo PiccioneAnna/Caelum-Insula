@@ -5,6 +5,7 @@ using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public enum TransitionType
 {
@@ -18,6 +19,11 @@ public class Transition : MonoBehaviour
     [SerializeField] TransitionType transitionType;
     [SerializeField] SceneEnum sceneNameToTransition;
     [SerializeField] Vector3 offsetPosition;
+
+    [SerializeField] List<GameObject> transparentDependecies;
+
+    public int newSortLayer;
+
     private Vector3 targetPosition;
     private Vector3 playerPosition;
 
@@ -49,18 +55,9 @@ public class Transition : MonoBehaviour
         switch (transitionType)
         {
             case TransitionType.Warp:
-                Cinemachine.CinemachineBrain currentCamera = Camera.main.GetComponent<Cinemachine.CinemachineBrain>();
-
-                currentCamera.ActiveVirtualCamera.OnTargetObjectWarped(
-                    toTransition,
-                    destination.position - toTransition.position
-                    );
-
-                toTransition.position = new Vector3(
-                    destination.position.x,
-                    destination.position.y,
-                    toTransition.position.z
-                    );
+                CalculateTransitionDistance();
+                ApplyNewSortOrder();
+                playerPosition = targetPosition;
                 break;
             case TransitionType.Scene:
                 CalculateTransitionDistance();
@@ -76,6 +73,16 @@ public class Transition : MonoBehaviour
     private void CalculateTransitionDistance()
     {
         targetPosition = playerPosition + (offsetPosition * 5f);
+    }
+
+    private void ApplyNewSortOrder()
+    {
+        GameManager.Instance.player.gameObject.GetComponentInChildren<SpriteRenderer>().sortingOrder = newSortLayer;
+
+        foreach (GameObject o in transparentDependecies)
+        {
+            o.SetActive(!o.activeSelf);
+        }
     }
 
     private void FindSpawnArea()

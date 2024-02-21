@@ -18,6 +18,7 @@ public class EnviroSpawner : MonoBehaviour
     public List<GameObject> spawnedObjects;
     public float minScale = .5f;
     public float maxScale = 2.5f;
+    public int layer = 0;
 
     private Vector3 position;
     private Quaternion rotation;
@@ -63,12 +64,20 @@ public class EnviroSpawner : MonoBehaviour
         // Doesn't yet check for invalid positions
 
         GameObject temp = Instantiate(go, new Vector3(position.x, position.y, 0) + transform.position, rotation, this.transform);
-        go.gameObject.transform.localScale = scale;
+        temp.transform.localScale = scale;
+
+        temp.GetComponent<SpriteRenderer>().sortingOrder = layer;
+
+        if(temp.GetComponentInChildren<SpriteRenderer>() != null)
+        {
+            Debug.Log("trying to set child");
+            temp.GetComponentInChildren<SpriteRenderer>().sortingOrder = layer;
+        }
 
         //bool isFlip = RandomSign();
-        //go.gameObject.GetComponent<Resource>().spriteRenderer.flipX = isFlip;
+        //go.GetComponent<Resource>().spriteRenderer.flipX = isFlip;
 
-        spawnedObjects.Add(go);
+        spawnedObjects.Add(temp);
     }
 
     #region Helper Methods
