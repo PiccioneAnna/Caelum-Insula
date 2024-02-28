@@ -20,6 +20,7 @@ public class Resource : MonoBehaviour
     [HideInInspector] public Resource instance;
     public Stat health;
     public Item[] droppedObjs;
+    public bool matchLayerNum = true;
     [SerializeField] public ResourceType nodeType;
 
     // Randomized drops

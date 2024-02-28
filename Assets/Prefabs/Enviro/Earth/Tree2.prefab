@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 97c577e1f1baf68428cb692901d14c3a, type: 2}
   - {fileID: 11400000, guid: 23aa9254a339c08418842bc14dc2a27a, type: 2}
   - {fileID: 11400000, guid: b57acfa90ce789f4aa5fcce685f72697, type: 2}
+  matchLayerNum: 0
   nodeType: 1
   maxDropCount: 10
   minDropCount: 2

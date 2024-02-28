@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -90,13 +89,13 @@ public class Transition : MonoBehaviour
         foreach (GameObject o in tbDisabled)
         {
             o.layer = LayerMask.NameToLayer("DisabledPhysics");
-            EnumHelper.SetLayerAllChildren(o.transform, o.layer);
+            EnumHelper.SetLayerMaskAllChildren(o.transform, o.layer);
         }
 
         foreach (GameObject o in tbEnabled)
         {
             o.layer = LayerMask.NameToLayer("Default");
-            EnumHelper.SetLayerAllChildren(o.transform, o.layer);
+            EnumHelper.SetLayerMaskAllChildren(o.transform, o.layer);
         }
     }
 
@@ -131,12 +130,44 @@ public static class EnumHelper
 
         return description;
     }
-    public static void SetLayerAllChildren(Transform root, int layer)
+    public static void SetLayerMaskAllChildren(Transform root, int layer)
     {
         var children = root.GetComponentsInChildren<Transform>(includeInactive: true);
         foreach (var child in children)
         {
-            child.gameObject.layer = layer;
+            child.gameObject.layer = layer; // layer mask aka disabled or default
+
+            var grandchildren = child.GetComponentsInChildren<Transform>(includeInactive: true);
+
+            foreach(var gc in grandchildren)
+            {
+                gc.gameObject.layer = root.gameObject.layer;
+            }
+        }
+    }
+
+    public static void SetSortingOrderAllChildren(List<GameObject> objs, int layer)
+    {
+        bool matchGC;
+
+        foreach (var child in objs)
+        {          
+            child.TryGetComponent(out SpriteRenderer renderer); // sorting order for sprite renderer
+            child.TryGetComponent(out Resource curr);
+
+            if(renderer != null) { renderer.sortingOrder = layer; }
+
+            if (curr != null) { matchGC = curr.matchLayerNum; }
+            else { matchGC = true; }
+
+            var grandchildren = child.GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
+
+            foreach (var gc in grandchildren)
+            {
+                if(gc == renderer) { break; }
+
+                gc.sortingOrder = matchGC ? layer : layer - 1;
+            }
         }
     }
 }

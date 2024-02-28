@@ -115,3 +115,16 @@ MonoBehaviour:
     - {x: 0, y: 1, z: 0}
     - {x: 0, y: -1, z: 0}
     m_RuleTransform: 0
+  - m_Id: 7
+    m_Sprites:
+    - {fileID: 307465826, guid: 27f8e7df0cde0d647ba3bccbd96aeabd, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 1
+    m_ColliderType: 1
+    m_RandomTransform: 5
+    m_Neighbors: 
+    m_NeighborPositions: []
+    m_RuleTransform: 0

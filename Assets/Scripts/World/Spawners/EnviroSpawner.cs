@@ -29,6 +29,7 @@ public class EnviroSpawner : MonoBehaviour
     Bounds colliderBounds;
     Vector3 colliderCenter;
     float[] ranges;
+    [HideInInspector] public List<Vector2> takenPositions;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,8 @@ public class EnviroSpawner : MonoBehaviour
             SpawnObject(RandomObjectPrefab());
         }
 
-        EnumHelper.SetLayerAllChildren(transform, gameObject.layer);
+        EnumHelper.SetLayerMaskAllChildren(transform, gameObject.layer);
+        EnumHelper.SetSortingOrderAllChildren(spawnedObjects, layer);
     }
 
     // Update is called once per frame
@@ -63,21 +65,16 @@ public class EnviroSpawner : MonoBehaviour
         RandomPosition();
         RandomScale();
 
-        // Doesn't yet check for invalid positions
+        // Doesn't spawn if already object
+        if(takenPositions.Contains(position))
+        {
+            return;
+        }
+
+        takenPositions.Add(position);
 
         GameObject temp = Instantiate(go, new Vector3(position.x, position.y, 0) + transform.position, rotation, this.transform);
         temp.transform.localScale = scale;
-
-        temp.GetComponent<SpriteRenderer>().sortingOrder = layer;
-
-        if(temp.GetComponentInChildren<SpriteRenderer>() != null)
-        {
-            //Debug.Log("trying to set child");
-            temp.GetComponentInChildren<SpriteRenderer>().sortingOrder = layer;
-        }
-
-        //bool isFlip = RandomSign();
-        //go.GetComponent<Resource>().spriteRenderer.flipX = isFlip;
 
         spawnedObjects.Add(temp);
     }
@@ -95,7 +92,7 @@ public class EnviroSpawner : MonoBehaviour
         float randomX = Random.Range(ranges[0], ranges[1]);
         float randomY = Random.Range(ranges[2], ranges[3]);
 
-        position = new Vector2(randomX, randomY);
+        position = new Vector2((int)randomX + .5f, (int)randomY + .5f);
     }
 
     // Get a random object to spawn;
