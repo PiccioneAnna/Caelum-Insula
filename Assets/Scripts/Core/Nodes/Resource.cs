@@ -98,6 +98,13 @@ public class Resource : TimeAgent
                 position = new Vector3(position.x + (multplierX * offsetX), position.y + (multplierY * offsetY), position.z);
                 ItemSpawnManager.instance.SpawnItem(position, drop);
             }
+
+            GameManager.Instance.FindEnviroSpawner();
+            if (GameManager.Instance.enviroSpawner.spawnedObjects.Contains(gameObject))
+            {
+                GameManager.Instance.enviroSpawner.spawnedObjects.Remove(gameObject);
+            }
+
             Destroy(gameObject);
         }
     }

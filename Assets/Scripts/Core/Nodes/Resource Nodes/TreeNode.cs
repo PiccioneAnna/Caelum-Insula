@@ -67,6 +67,15 @@ public class TreeNode : Resource
         growTimer = 0;
 
         currStage = children[stageIndex];
+
+        spriteRenderer.sprite = null;
+        rootLeaves.sprite = null;
+        rootTrunk.sprite = null;
+
+        spriteRenderer.sortingOrder = GameManager.Instance.player.GetComponentInChildren<SpriteRenderer>().sortingOrder;
+
+        SetSpriteLayers();
+        PopulateRoot();
     }
 
     /// <summary>
@@ -75,6 +84,8 @@ public class TreeNode : Resource
     public void Tick()
     {
         growTimer++;
+        health.currVal++;
+        UpdateHealthBar();
 
         if(!fullGrown && growTimer >= children[stageIndex].time)
         {
@@ -84,7 +95,10 @@ public class TreeNode : Resource
                 PopulateRoot();
                 stageIndex++;
 
-                if(stageIndex >= children.Count)
+                health.SetToMax();
+                UpdateHealthBar();
+
+                if (stageIndex >= children.Count)
                 {
                     fullGrown = true;
                 }

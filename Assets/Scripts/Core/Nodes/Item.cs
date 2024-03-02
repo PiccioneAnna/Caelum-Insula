@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using Data;
 using System;
@@ -38,6 +37,7 @@ namespace Data
         public TileBase tile;
         public GameObject obj;
         public Crop crop;
+        public GameObject treeN;
         public GameObject projectile;
 
         [Header("Actions")]
@@ -48,6 +48,7 @@ namespace Data
         public enum ItemType
         {
             Crop,
+            TreeSeed,
             Material,
             Tool,
             Weapon,

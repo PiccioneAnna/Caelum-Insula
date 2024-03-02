@@ -60,15 +60,17 @@ public class EnviroSpawner : MonoBehaviour
         
     }
 
-    public void SpawnObject(GameObject go)
+    public GameObject SpawnObject(GameObject go, Vector3Int pos = new Vector3Int())
     {
         RandomPosition();
         RandomScale();
 
+        position = pos != default ? (Vector3)pos : position;
+
         // Doesn't spawn if already object
-        if(takenPositions.Contains(position))
+        if (takenPositions.Contains(position))
         {
-            return;
+            return null;
         }
 
         takenPositions.Add(position);
@@ -77,6 +79,8 @@ public class EnviroSpawner : MonoBehaviour
         temp.transform.localScale = scale;
 
         spawnedObjects.Add(temp);
+
+        return temp;
     }
 
     #region Helper Methods

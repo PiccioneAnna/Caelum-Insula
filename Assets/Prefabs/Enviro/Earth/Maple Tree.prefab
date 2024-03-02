@@ -640,7 +640,7 @@ MonoBehaviour:
   healthValueText: {fileID: 935296266561636804}
   instance: {fileID: 0}
   health:
-    maxVal: 100
+    maxVal: 10
     currVal: 0
   matchLayerNum: 1
   nodeType: 0

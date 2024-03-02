@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject itemVisual; // for always having item infront of all UI
     public GetCameraCollider getCameraCollider;
     public TilemapInfoManager tilemapInfoManager;
+    public EnviroSpawner enviroSpawner;
 
     /// <summary>
     /// Class is a singleton, only one should exist at ALL times
@@ -51,5 +52,10 @@ public class GameManager : MonoBehaviour
         if (grid == null) { return; }
 
         tilemapInfoManager = grid.GetComponent<TilemapInfoManager>();
+    }
+
+    public void FindEnviroSpawner()
+    {
+        enviroSpawner = FindAnyObjectByType<EnviroSpawner>();
     }
 }

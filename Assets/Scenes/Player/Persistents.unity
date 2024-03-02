@@ -11830,6 +11830,7 @@ MonoBehaviour:
   itemVisual: {fileID: 356453348}
   getCameraCollider: {fileID: 2668538115011006915}
   tilemapInfoManager: {fileID: 0}
+  enviroSpawner: {fileID: 0}
 --- !u!114 &1960111479
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ MonoBehaviour:
   id: 
   itemType: 1
   image: {fileID: 649670831, guid: b3ceaf910971ff1478b7db40d219ae8b, type: 3}
-  usesGrid: 0
+  usesGrid: 1
   stackable: 1
   iconHighlight: 0
   isWeapon: 0
@@ -27,7 +27,8 @@ MonoBehaviour:
   tile: {fileID: 0}
   obj: {fileID: 0}
   crop: {fileID: 0}
+  treeN: {fileID: 2897873502716744397, guid: 269b9c5553d217b438db8df91b414f93, type: 3}
   projectile: {fileID: 0}
   onAction: {fileID: 0}
-  onTileMapAction: {fileID: 0}
+  onTileMapAction: {fileID: 11400000, guid: 47cc393f1487e5e4bbaf142b78551166, type: 2}
   onItemUsed: {fileID: 0}
