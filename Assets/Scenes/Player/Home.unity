@@ -69365,7 +69365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3423696878288477416, guid: 5e0437070450c074286a7245b45007ed, type: 3}
       propertyPath: layer
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3423696878288477416, guid: 5e0437070450c074286a7245b45007ed, type: 3}
       propertyPath: objects.Array.size

@@ -156,6 +156,7 @@ public static class EnumHelper
             child.TryGetComponent(out Resource curr);
 
             if(renderer != null) { renderer.sortingOrder = layer; }
+            else { break; } // otherwise renderer is determined by object
 
             if (curr != null) { matchGC = curr.matchLayerNum; }
             else { matchGC = true; }

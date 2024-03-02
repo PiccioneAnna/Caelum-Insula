@@ -5,6 +5,8 @@ public enum ResourceType
     Undefined,
     Tree,
     Mineral,
+    Grass,
+    Bush
 }
 
 namespace ToolActions
@@ -26,18 +28,28 @@ namespace ToolActions
     {
         [SerializeField] float sizeOfInteractableArea = 5;
         [SerializeField] List<ResourceType> canHitNodesOfType;
+
+        readonly int layerMaskInt = 1 << 0; // Default layer?
+
         public override bool OnApply(Vector2 worldPoint)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(worldPoint, sizeOfInteractableArea);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(worldPoint, sizeOfInteractableArea, layerMaskInt);
 
             foreach (Collider2D c in colliders)
             {
+                Debug.Log(c.gameObject.name);
+
+                if(c.gameObject.name == "Player") { break; }
+
                 // check prevents disabled objects from being interacted with
-                if (c.gameObject.layer == LayerMask.NameToLayer("DisabledPhysics")) { break; }
+                if (c.transform.gameObject.layer == LayerMask.NameToLayer("DisabledPhysics")) { break; }
+                if (c.transform.gameObject.layer == LayerMask.NameToLayer("Border")) { break; }
 
-                Debug.Log("Collider found");
+                Debug.Log($"Collider found...{c.transform.gameObject.name}");
 
-                if(c.TryGetComponent<Resource>(out var hit))
+                var hit = c.transform.GetComponent<Resource>() != null ? c.transform.GetComponent<Resource>() : c.transform.GetComponentInParent<Resource>();
+
+                if (hit)
                 {
                     Debug.Log("Resource Found");
 

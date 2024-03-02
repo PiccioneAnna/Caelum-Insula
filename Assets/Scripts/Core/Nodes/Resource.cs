@@ -5,36 +5,33 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public class Resource : MonoBehaviour
+public class Resource : TimeAgent
 {
     #region Fields
     [Header("Components")]
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer shadowRenderer;
-    public Sprite[] sprites;
     public StatusBar healthBar;
     public TMP_Text healthValueText;
 
     [Header("Resource Stats")]
     [HideInInspector] public Resource instance;
     public Stat health;
-    public Item[] droppedObjs;
-    public bool matchLayerNum = true;
-    [SerializeField] public ResourceType nodeType;
+    [HideInInspector] public bool matchLayerNum = true;
+    [HideInInspector] public ResourceType nodeType;
 
     // Randomized drops
-    private Item drop;
-    private System.Random random;
-    private Vector3 position;
-    private Quaternion rotation;
-    private float offsetX, offsetY;
-    private int multplierX, multplierY;
+    [Header("Drops")]
+    public Item[] droppedObjs;
+    protected Item drop;
+    protected System.Random random;
+    protected Vector3 position;
+    protected Quaternion rotation;
+    protected float offsetX, offsetY;
+    protected int multplierX, multplierY;
     public int maxDropCount, minDropCount;
-    private int dropCount;
-
-    [Header("Behaviors")]
-    public bool multiSprite = false;
+    protected int dropCount;
 
     #endregion
 
@@ -45,11 +42,6 @@ public class Resource : MonoBehaviour
         instance = this;
         health.SetToMax();
         random = new System.Random();
-
-        if (multiSprite)
-        {
-            HandleMultipleSprites();
-        }
 
         dropCount = random.Next(maxDropCount) + minDropCount + (int)transform.localScale.x;
         position = transform.position;
@@ -62,17 +54,6 @@ public class Resource : MonoBehaviour
         // idk if i need this rn but ill keep it for later
     }
 
-    public void HandleMultipleSprites()
-    {
-        if (spriteRenderer != null && sprites.Length > 0)
-        {
-            int i = random.Next(sprites.Length);
-
-            spriteRenderer.sprite = sprites[i];
-            //shadowRenderer.sprite = spriteRenderer.sprite;
-        }
-    }
-   
     public void UpdateHealthBar()
     {
         if(healthBar == null || healthValueText == null) { return; }
