@@ -11,13 +11,21 @@ public class CellularAutomata : MonoBehaviour
     #region fields
     private int[,] _cellularAutomata;
 
-    [SerializeField] public int _width;
-    [SerializeField] public int _height;
-    [SerializeField] float _fillPercent;
-    [SerializeField] int _liveNeighboursRequired;
-    [SerializeField] int _stepCount;
-
+    private int _width;
+    private int _height;
+    private float _fillPercent;
+    private int _liveNeighboursRequired;
+    private int _stepCount;
     #endregion
+
+    public void Set(int width, int height, float fillPercent, int liveNeighbors, int step)
+    {
+        _width = width;
+        _height = height;
+        _fillPercent = fillPercent;
+        _liveNeighboursRequired = liveNeighbors;
+        _stepCount = step;
+    }
 
     public int[,] GenerateMap(int[,] previousArray)
     {
