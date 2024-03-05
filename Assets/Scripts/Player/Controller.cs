@@ -1,14 +1,8 @@
 using Interacts;
-using Inventory;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using TilemapScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
-using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 
 // Class handles movement, actions, and main references to other systems
 namespace Player

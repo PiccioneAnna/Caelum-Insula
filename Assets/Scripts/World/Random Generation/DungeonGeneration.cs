@@ -5,20 +5,24 @@ using UnityEngine.Tilemaps;
 public class DungeonGeneration : MonoBehaviour
 {
     #region Fields
+
     private CellularAutomata cellularAutomata;
     private TilemapCollider2D tilemapCollider;
 
     public bool autoGenerate = false;
 
+    [Header("Visuals")]
+    [SerializeField] public int wallHeight = 2;
+
     [Header("Cellular Automata Stats")]
-    [SerializeField] public int _width;
-    [SerializeField] public int _height;
+    public int _width;
+    public int _height;
     [SerializeField] float _fillPercent;
     [SerializeField] int _liveNeighboursRequired;
     [SerializeField] int _stepCount;
 
-    [HideInInspector] public int[,] cellularAutomata0;
-    [HideInInspector] public int[,] cellularAutomata1;
+    [HideInInspector] public int[,] baseLevel;
+    [HideInInspector] public int[,] wallLevel;
     [HideInInspector] public List<Vector3Int> validPositions;
     [HideInInspector] public List<Vector3Int> wallPositions;
 
@@ -29,12 +33,12 @@ public class DungeonGeneration : MonoBehaviour
     [Header("Conditionals")]
     public bool hasWalls;
 
-    #endregion
-
     public Tilemap targetGround;
     public Tilemap targetWalls;
 
+    #endregion
 
+    #region Runtime Only
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +51,8 @@ public class DungeonGeneration : MonoBehaviour
     {
         
     }
+
+    #endregion
 
     #region Gathering Components & Setup
 
@@ -63,12 +69,30 @@ public class DungeonGeneration : MonoBehaviour
     #region Cellular Automata References
     private void PopulateDataGround()
     {
-        cellularAutomata0 = cellularAutomata.GenerateMap(null);
+        baseLevel = cellularAutomata.GenerateMap(null);
     }
 
     private void PopulateDataWall()
     {
-        cellularAutomata1 = TilemapGenerator.DefineWallPlacement(cellularAutomata0);
+        wallLevel = TilemapGenerator.DefineWallPlacement(baseLevel);
+    }
+
+    #endregion
+
+    #region Dungeon Customization Visually
+
+    private void ChangeWallHeight()
+    {
+        for (int x = 0; x < wallLevel.GetLength(0); x++)
+        {
+            for (int y = 0; y < wallLevel.GetLength(1); y++)
+            {
+                if ((wallLevel[x,y] == 1) && (y - 1 >= 0))
+                {
+                    wallLevel[x,y-1] = 1;
+                }
+            }
+        }
     }
 
     #endregion
@@ -79,10 +103,12 @@ public class DungeonGeneration : MonoBehaviour
         PopulateDataGround();
         PopulateDataWall();
 
+        ChangeWallHeight(); // defaults to 2
+
         // Initiating ground floor map
         Debug.Log("Initiating map population...");
-        validPositions = TilemapGenerator.PopulateTilemap(targetGround, cellularAutomata0, ground);
-        wallPositions = TilemapGenerator.PopulateTilemap(targetWalls, cellularAutomata1, wall);
+        validPositions = TilemapGenerator.PopulateTilemap(targetGround, baseLevel, ground);
+        wallPositions = TilemapGenerator.PopulateTilemap(targetWalls, wallLevel, wall);
 
         Debug.Log("Map generation complete.");
         tilemapCollider.ProcessTilemapChanges();

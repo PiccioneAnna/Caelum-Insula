@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
-using UnityEngine.WSA;
 
 public static class TilemapGenerator 
 {
@@ -43,12 +41,25 @@ public static class TilemapGenerator
         {
             for (int y = 0; y < caBuffer.GetLength(1); y++)
             {
-                Debug.Log(refArray.GetLength(1));
+                if (refArray[x, y] == 1) {
 
-                if ((refArray[x,y] == 1 && refArray.GetLength(1) > y-1 && refArray[y - 1,x] == 0) ||
-                        (refArray[x,y] == 1 && refArray.GetLength(1) < y + 1 && refArray[y + 1, x] == 0))
-                {
-                    caBuffer[x,y] = 1;
+                    if (((y - 1) >= 0) && ((y - 1) < refArray.GetLength(1))) // 1 up & 1 down within range
+                    {
+                        if ((refArray[x, y - 1] == 0))
+                        {
+                            caBuffer[x, y] = 1;
+                        }
+                    }
+                    
+                    if (((y + 1) > 0) && ((y + 1) < refArray.GetLength(1))) // 1 up & 1 down within range
+                    {
+                        if ((refArray[x, y + 1] == 0))
+                        {
+                            caBuffer[x, y] = 1;
+                        }
+                    }
+
+                    if (caBuffer[x,y] != 1) { caBuffer[x,y] = 0; }
                 }
                 else
                 {
