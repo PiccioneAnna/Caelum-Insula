@@ -38,6 +38,7 @@ namespace Player
         private bool multiGrid;
         private bool place;
         public bool canFire;
+        public bool canDoAction;
         private float attackTimer = 0f;
         private float timeBetweenShots = .5f;
 
@@ -50,6 +51,7 @@ namespace Player
         public float _speed = 3f;
         private float _currSpeed;
         public float _sprintMultiplier = 1.6f;
+        public float _timeBetweenActions = .5f;
         public Vector2 sizeOfIA; // static for all tools for now
         float maxDistance;
         private Vector2 _movementInput;
@@ -57,6 +59,7 @@ namespace Player
         private Vector2 _moveDirection = Vector2.zero;
         public Character character;
         private float offsetDistance = 1.2f;
+        public float actionTimer;
 
         [Header("Data")]
         Vector3Int selectedTilePosition;
@@ -87,6 +90,7 @@ namespace Player
         void Start()
         {
             gameManager = GameManager.Instance;
+            actionTimer = 0f;
 
             // Reference each manager in the GameManager
             inventoryManager = gameManager.inventory;
@@ -109,22 +113,37 @@ namespace Player
 
             HandleUIInteraction();
 
-            if(Input.GetMouseButtonDown(0))
-            {
-                WeaponAction();
-                character.GetTired(1);
+            actionTimer += Time.deltaTime;
+            if(actionTimer > _timeBetweenActions) 
+            {  
+                canDoAction = true;
+                actionTimer = 0f;
             }
+        }
+
+        void FixedUpdate()
+        {
+            ApplyMovement();
+
+            // Passive Regen
+            character.Rest(.01f);
+            character.Heal(.01f);
 
             if (Input.GetMouseButtonDown(0))
-            {             
-                if (!isInteract && !isUIOpen)
+            {
+                WeaponAction();
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                if (!isInteract && !isUIOpen && character.energy.currVal > 0 && canDoAction)
                 {
                     Interact();
 
                     if (!isInteract)
                     {
                         UseToolWorld();
-                        character.GetTired(1);
+                        character.GetTired(4);
                     }
                 }
             }
@@ -134,18 +153,8 @@ namespace Player
                 if (!isInteract && useGrid)
                 {
                     UseToolGrid();
-                    character.GetTired(1);
                 }
             }
-        }
-
-        private void FixedUpdate()
-        {
-            ApplyMovement();
-
-            // Passive Regen
-            character.Rest(.10f);
-            character.Heal(.05f);
         }
 
         private void OnEnable()
@@ -220,6 +229,8 @@ namespace Player
         #region Tools
         private bool UseToolWorld()
         {
+            if (character.energy.currVal <= 0) { return false; };
+
             Vector2 position = _rb.position;
 
             if (selectedItem == null)

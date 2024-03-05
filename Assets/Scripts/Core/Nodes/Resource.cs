@@ -16,7 +16,6 @@ public class Resource : TimeAgent
     public TMP_Text healthValueText;
 
     [Header("Resource Stats")]
-    [HideInInspector] public Resource instance;
     public Stat health;
     [HideInInspector] public bool matchLayerNum = true;
     [HideInInspector] public ResourceType nodeType;
@@ -39,7 +38,6 @@ public class Resource : TimeAgent
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         health.SetToMax();
         random = new System.Random();
 

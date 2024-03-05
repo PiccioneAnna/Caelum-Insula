@@ -14,6 +14,9 @@ public struct GrowthStage
 public class TreeNode : Resource
 {
     #region Fields
+
+    [HideInInspector] public TreeNode instance;
+
     [Header("Tree Specific Components")]
     [HideInInspector] public GameObject root;
     [HideInInspector] public Collider2D col;
@@ -32,9 +35,20 @@ public class TreeNode : Resource
 
     #endregion
 
+    private void Awake()
+    {
+        if (instance == null) // If there is no instance already
+        {
+            instance = this;
+        }
+        else if (instance != this) // If there is already an instance and it's not `this` instance
+        {
+            Destroy(gameObject); // Destroy the GameObject, this component is attached to
+        }
+    }
 
     // Start is called before the first frame update
-    void Start()
+    private void GetComponents()
     {
         random = new System.Random();
 
@@ -48,11 +62,20 @@ public class TreeNode : Resource
         dropCount = random.Next(maxDropCount) + minDropCount + (int)transform.localScale.x;
         position = transform.position;
         rotation = transform.rotation;
+    }
+
+    public void PreExistingTreeNode()
+    {
+        GetComponents();
 
         growTimer = 0;
         stageIndex = random.Next(children.Count);
         currStage = children[stageIndex];
         growTimer = currStage.time;
+
+        if(GameManager.Instance.enviroSpawner == null) { GameManager.Instance.FindEnviroSpawner(); }
+
+        spriteRenderer.sortingOrder = GameManager.Instance.enviroSpawner.layer;
 
         PopulateRoot();
         SetSpriteLayers();
@@ -63,8 +86,12 @@ public class TreeNode : Resource
 
     public void NewTreeNode()
     {
+        GetComponents();
+
         stageIndex = 0;
         growTimer = 0;
+
+        fullGrown = false;
 
         currStage = children[stageIndex];
 
@@ -74,8 +101,11 @@ public class TreeNode : Resource
 
         spriteRenderer.sortingOrder = GameManager.Instance.player.GetComponentInChildren<SpriteRenderer>().sortingOrder;
 
-        SetSpriteLayers();
         PopulateRoot();
+        SetSpriteLayers();
+
+        onTimeTick += Tick;
+        Init();
     }
 
     /// <summary>
@@ -84,7 +114,12 @@ public class TreeNode : Resource
     public void Tick()
     {
         growTimer++;
-        health.currVal++;
+
+        if(health.currVal < health.maxVal)
+        {
+            health.currVal++;
+        }
+
         UpdateHealthBar();
 
         if(!fullGrown && growTimer >= children[stageIndex].time)
@@ -110,11 +145,12 @@ public class TreeNode : Resource
     {
         rootLeaves.sortingOrder = spriteRenderer.sortingOrder + 1;
         rootTrunk.sortingOrder = spriteRenderer.sortingOrder - 1;
+
+        healthBar.gameObject.GetComponentInParent<Canvas>().sortingOrder = spriteRenderer.sortingOrder + 1;
     }
 
     private void PopulateRoot()
     {
-
         if(currStage.trunk != null)
         {
             rootTrunk.gameObject.SetActive(true);

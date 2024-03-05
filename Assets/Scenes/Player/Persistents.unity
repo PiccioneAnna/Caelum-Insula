@@ -9599,6 +9599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preserveRotation: 1
+  worldPos: {x: 0, y: 0, z: 0}
   mag: {fileID: 1620336815}
 --- !u!1 &1620336815
 GameObject:
@@ -13301,7 +13302,7 @@ PrefabInstance:
       objectReference: {fileID: 1279442876}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: itemsToPickup.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: itemsToPickup.Array.data[1]
@@ -13352,6 +13353,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 16cae902302d3c648a50d71b349a68fa, type: 2}
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: itemsToPickup.Array.data[8].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 991f379b416d7dd46b74e4f2fbd977e7, type: 2}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: itemsToPickup.Array.data[0].count
       value: 1
       objectReference: {fileID: 0}
@@ -13382,6 +13387,10 @@ PrefabInstance:
     - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: itemsToPickup.Array.data[7].count
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791559840633139081, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
+      propertyPath: itemsToPickup.Array.data[8].count
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7284837907591115463, guid: 71478ab9e17a20c4eb6fac1411edde72, type: 3}
       propertyPath: m_LocalPosition.x

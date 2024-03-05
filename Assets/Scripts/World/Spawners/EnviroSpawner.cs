@@ -75,8 +75,35 @@ public class EnviroSpawner : MonoBehaviour
 
         takenPositions.Add(position);
 
-        GameObject temp = Instantiate(go, new Vector3(position.x, position.y, 0) + transform.position, rotation, this.transform);
+        GameObject temp = Instantiate(go, new Vector3(position.x + .5f, position.y + .5f, 0) + transform.position, rotation, this.transform);
         temp.transform.localScale = scale;
+
+        if(temp.TryGetComponent(out TreeNode tre))
+        {
+            tre.PreExistingTreeNode();
+        }
+
+        spawnedObjects.Add(temp);
+
+        return temp;
+    }
+
+    public GameObject NewTreeObject(GameObject go, Vector3Int pos = new Vector3Int())
+    {
+        position = pos != default ? (Vector3)pos : position;
+
+        // Doesn't spawn if already object
+        if (takenPositions.Contains(position))
+        {
+            return null;
+        }
+
+        takenPositions.Add(position);
+
+        GameObject temp = Instantiate(go, new Vector3(position.x + .5f, position.y + .5f, 0) + transform.position, rotation, this.transform);
+        temp.transform.localScale = scale;
+
+        temp.GetComponent<TreeNode>().NewTreeNode();
 
         spawnedObjects.Add(temp);
 

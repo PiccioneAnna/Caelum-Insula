@@ -16,11 +16,10 @@ namespace ToolAction
 
             if (GameManager.Instance.enviroSpawner == null) { GameManager.Instance.FindEnviroSpawner(); }
 
-            spawnedTree = GameManager.Instance.enviroSpawner.SpawnObject(item.treeN, gridPosition);
+            GameManager.Instance.enviroSpawner.NewTreeObject(item.treeN, gridPosition);
 
             if (spawnedTree == null) {  return false; }
 
-            spawnedTree.GetComponent<TreeNode>().NewTreeNode();
             GameManager.Instance.inventory.RemoveItem(item);
 
             return true;

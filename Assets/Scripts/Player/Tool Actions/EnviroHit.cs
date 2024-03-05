@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using static UnityEngine.RuleTile.TilingRuleOutput;
+using Player;
 public enum ResourceType
 {
     Undefined,
@@ -26,14 +29,25 @@ namespace ToolActions
     [CreateAssetMenu(menuName = "Data/Tool Action/Enviro Hit")]
     public class EnviroHit : Base
     {
-        [SerializeField] float sizeOfInteractableArea = 5;
+        [SerializeField] float sizeOfInteractableArea = 2;
         [SerializeField] List<ResourceType> canHitNodesOfType;
+
+        private Vector3 centerPoint;
+        private Controller player;
 
         readonly int layerMaskInt = 1 << 0; // Default layer?
 
         public override bool OnApply(Vector2 worldPoint)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(worldPoint, sizeOfInteractableArea, layerMaskInt);
+            player = GameManager.Instance.player;
+            centerPoint = player.weaponPoint.worldPos;
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(centerPoint, sizeOfInteractableArea, layerMaskInt);
+
+            //sort colliders by distance - closest should be checked first
+            colliders = colliders.OrderBy((d) => (d.bounds.center - centerPoint).sqrMagnitude).ToArray();
+
+            if (player.character.isExhausted) { return false; }
 
             foreach (Collider2D c in colliders)
             {
@@ -57,6 +71,7 @@ namespace ToolActions
                     {
                         Debug.Log("Enviro Hit");
                         hit.Hit();
+                        player.canDoAction = false;
                         return true;
                     }
                 }

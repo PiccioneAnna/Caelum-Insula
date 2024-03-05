@@ -13,7 +13,6 @@ public class MineralNode : Resource
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         health.SetToMax();
         random = new System.Random();
         nodeType = ResourceType.Mineral;

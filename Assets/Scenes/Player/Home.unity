@@ -69683,6 +69683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enviro Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 5954500240979075147, guid: 5e0437070450c074286a7245b45007ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

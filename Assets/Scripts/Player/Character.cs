@@ -19,13 +19,13 @@ public class Stat
     internal void Subtract(int amount)
     {
         currVal -= amount;
+        Mathf.Clamp(currVal, -.5f, maxVal);
     }
 
     internal void Add(float amount)
     {
         currVal += amount;
-
-        if (currVal > maxVal) { currVal = maxVal; }
+        Mathf.Clamp(currVal, -.5f, maxVal);
     }
 
     internal void SetToMax()
@@ -124,11 +124,16 @@ public class Character : MonoBehaviour
     public void Rest(float amount)
     {
         energy.Add(amount);
+        if (energy.currVal >= 0)
+        {
+            isExhausted = false;
+        }
         UpdateEnergyBar();
     }
 
     public void FullRest()
     {
+        isExhausted = false;
         energy.SetToMax();
         UpdateEnergyBar();
     }

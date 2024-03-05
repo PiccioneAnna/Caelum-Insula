@@ -17,6 +17,11 @@ public class TimeAgent : MonoBehaviour
         GameManager.Instance.timeController.Subscribe(this);
     }
 
+    public void UnSubscribe()
+    {
+        GameManager.Instance.timeController.UnSubscribe(this);
+    }
+
     public void Invoke()
     {
         onTimeTick?.Invoke();
@@ -24,6 +29,6 @@ public class TimeAgent : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.Instance.timeController.UnSubscribe(this);
+        UnSubscribe();
     }
 }
