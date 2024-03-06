@@ -69669,8 +69669,12 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3423696878288477416, guid: 5e0437070450c074286a7245b45007ed, type: 3}
+      propertyPath: maxSpawnCount
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423696878288477416, guid: 5e0437070450c074286a7245b45007ed, type: 3}
       propertyPath: objects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3423696878288477416, guid: 5e0437070450c074286a7245b45007ed, type: 3}
       propertyPath: objects.Array.data[0]
@@ -69680,6 +69684,10 @@ PrefabInstance:
       propertyPath: objects.Array.data[1]
       value: 
       objectReference: {fileID: 2897873502716744397, guid: 269b9c5553d217b438db8df91b414f93, type: 3}
+    - target: {fileID: 3423696878288477416, guid: 5e0437070450c074286a7245b45007ed, type: 3}
+      propertyPath: objects.Array.data[2]
+      value: 
+      objectReference: {fileID: 2897873502716744397, guid: f6ebc92b9fc08aa49a4466d2e0cf4c49, type: 3}
     - target: {fileID: 5954500240979075147, guid: 5e0437070450c074286a7245b45007ed, type: 3}
       propertyPath: m_Name
       value: Enviro Spawner

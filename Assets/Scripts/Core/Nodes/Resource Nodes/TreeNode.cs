@@ -21,6 +21,7 @@ public class TreeNode : Resource
     [HideInInspector] public GameObject root;
     [HideInInspector] public Collider2D col;
     public SpriteRenderer rootLeaves;
+    public SpriteRenderer rootTree;
     public SpriteRenderer rootTrunk;
     public List<GrowthStage> children;
     private GrowthStage currStage;
@@ -56,7 +57,6 @@ public class TreeNode : Resource
 
         root = gameObject;
         nodeType = ResourceType.Tree;
-        spriteRenderer = root.GetComponent<SpriteRenderer>();
         col = root.GetComponent<Collider2D>();
 
         dropCount = random.Next(maxDropCount) + minDropCount + (int)transform.localScale.x;
@@ -169,8 +169,12 @@ public class TreeNode : Resource
 
         if (currStage.tree != null)
         {
-            currStage.tree.TryGetComponent<SpriteRenderer>(out SpriteRenderer srRenderer);
-            if (srRenderer != null) { spriteRenderer.sprite = srRenderer.sprite; }
+            currStage.tree.TryGetComponent<SpriteRenderer>(out SpriteRenderer srTree);
+            if (srTree != null) 
+            {
+                rootTree.sprite = srTree.sprite;
+                rootTree.transform.position = currStage.tree.transform.position;
+            }
         }
 
         if (currStage.leaves != null)

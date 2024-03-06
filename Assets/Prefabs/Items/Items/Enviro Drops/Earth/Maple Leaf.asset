@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Maple Leaf
   id: 
-  itemType: 1
+  itemType: 2
   image: {fileID: 1744932853, guid: b3ceaf910971ff1478b7db40d219ae8b, type: 3}
   usesGrid: 0
   stackable: 1
@@ -27,6 +27,7 @@ MonoBehaviour:
   tile: {fileID: 0}
   obj: {fileID: 0}
   crop: {fileID: 0}
+  treeN: {fileID: 0}
   projectile: {fileID: 0}
   onAction: {fileID: 0}
   onTileMapAction: {fileID: 0}
