@@ -12,6 +12,7 @@ public class CropTile
     public SpriteRenderer renderer;
     public float damage;
     public Vector2Int position;
+    public GameObject dirtMound;
 
     public bool Complete
     {

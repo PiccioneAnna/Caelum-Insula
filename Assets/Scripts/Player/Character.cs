@@ -36,44 +36,71 @@ public class Stat
 
 public class Character : MonoBehaviour
 {
+    #region Fields
+
     public int level = 1;
 
     [Header("Stats")]
     public Stat hp;   
     public Stat energy;
+    public Stat elemental;
     
     [Header ("States")]
     public bool isDead;
     public bool isExhausted;
+    public bool isElementalDrained;
 
     [Header("Status Bars")]
     [SerializeField] StatusBar hpBar;
     [SerializeField] StatusBar energyBar;
+    [SerializeField] StatusBar elementalBar;
+
+    public TextMeshProUGUI hpValue;
+    public TextMeshProUGUI energyValue;
+    public TextMeshProUGUI elementalValue;
 
     [Header("Color Theory")]
     [SerializeField] Color damageColor = Color.red;
     private SpriteRenderer spriteRenderer;
 
+    #endregion
 
+    #region Runtime
     private void Start()
     {
         hp.currVal = hp.maxVal;
         energy.currVal = energy.maxVal;
+        elemental.currVal = elemental.maxVal;
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         UpdateHPBar();
         UpdateEnergyBar();
+        UpdateElementalBar();
     }
+    #endregion
 
     #region Update Status Bars
     private void UpdateHPBar()
     {
         hpBar.Set(hp.currVal, hp.maxVal);
+
+        hpValue.text = FormatStatValue(hp);
+        hpValue.transform.parent.gameObject.SetActive(DisplayValue(hp));
     }
     private void UpdateEnergyBar()
     {
         energyBar.Set(energy.currVal, energy.maxVal);
+
+        energyValue.text = FormatStatValue(energy);
+        energyValue.transform.parent.gameObject.SetActive(DisplayValue(energy));
+    }
+    private void UpdateElementalBar()
+    {
+        elementalBar.Set(elemental.currVal, elemental.maxVal);
+
+        elementalValue.text = FormatStatValue(elemental);
+        elementalValue.transform.parent.gameObject.SetActive(DisplayValue(elemental));
     }
 
     #endregion
@@ -140,11 +167,52 @@ public class Character : MonoBehaviour
 
     #endregion
 
+    #region Elemental Energy
+
+    public void GetTiredElemental(int amount)
+    {
+        elemental.Subtract(amount);
+        if (elemental.currVal <= 0)
+        {
+            isElementalDrained = true;
+        }
+        UpdateElementalBar();
+    }
+
+    public void RestElemental(float amount)
+    {
+        elemental.Add(amount);
+        if (elemental.currVal >= 0)
+        {
+            isElementalDrained = false;
+        }
+        UpdateElementalBar();
+    }
+
+    public void FullRestElemental()
+    {
+        isElementalDrained = false;
+        elemental.SetToMax();
+        UpdateElementalBar();
+    }
+
+    #endregion
+
     #region Helper Methods
     IEnumerator Whitecolor()
     {
         yield return new WaitForSeconds(0.25f);
         spriteRenderer.color = Color.white;
+    }
+
+    private String FormatStatValue(Stat stat)
+    {
+        return $"{(int)stat.currVal} / {stat.maxVal}";
+    }
+
+    private bool DisplayValue(Stat stat)
+    {
+        return stat.currVal < stat.maxVal;
     }
     #endregion
 

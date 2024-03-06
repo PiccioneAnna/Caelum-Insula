@@ -13,6 +13,7 @@ namespace TilemapScripts
         [SerializeField] Inventory.CropsContainer container;
 
         [SerializeField] TileBase hoedEffect;
+        [SerializeField] GameObject dirtMound;
 
         public Tilemap targetTilemap;
         private Inventory.Manager inventoryManager;
@@ -64,6 +65,11 @@ namespace TilemapScripts
             foreach (CropTile cropTile in container.crops)
             {
                 if (cropTile.crop == null) { continue; }
+
+                if(cropTile.growTimer > 2 && cropTile.dirtMound.activeSelf)
+                {
+                    cropTile.dirtMound.SetActive(false);
+                }
 
                 //cropTile.damage += 0.02f;
 
@@ -125,6 +131,9 @@ namespace TilemapScripts
             if (tile.crop != null) { return; }
 
             tile.crop = toSeed;
+
+            tile.dirtMound = Instantiate(dirtMound, position + new Vector3(0.5f, 0.4f), Quaternion.identity);
+            tile.dirtMound.GetComponent<SpriteRenderer>().sortingOrder = tile.renderer.sortingOrder; 
 
             inventoryManager.RemoveItem(toSeed.seeds);
         }

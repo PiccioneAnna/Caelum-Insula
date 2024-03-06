@@ -53,32 +53,17 @@ MonoBehaviour:
   animator: {fileID: 3212132961628119226}
   spriteRenderer: {fileID: 1384087523364979346}
   shadowRenderer: {fileID: 3453987662625658331}
-  sprites:
-  - {fileID: 343439490, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -1095472204, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -2104620964, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -1056049402, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -754717582, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -949049943, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -170196221, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: 1478909371, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: 736019672, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -2027190023, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -2052912423, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: 1650575590, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
-  - {fileID: -637012432, guid: be58a347276ab0b4c9c7d42b6878edf1, type: 3}
   healthBar: {fileID: 7104561836789137336}
   healthValueText: {fileID: 199877119548089173}
-  instance: {fileID: 0}
   health:
-    maxVal: 40
+    maxVal: 20
     currVal: 0
+  matchLayerNum: 1
+  nodeType: 2
   droppedObjs:
   - {fileID: 11400000, guid: 496705f9d1dac93449ccc7f2b8332b4d, type: 2}
-  nodeType: 2
   maxDropCount: 15
   minDropCount: 5
-  multiSprite: 1
 --- !u!95 &3212132961628119226
 Animator:
   serializedVersion: 5

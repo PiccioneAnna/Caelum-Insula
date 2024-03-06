@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TilemapScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 // Class handles movement, actions, and main references to other systems
 namespace Player
@@ -12,8 +13,13 @@ namespace Player
         #region Fields
 
         [Header("UI References")]
+        public GameObject _mainUIRootContainer;
         public GameObject _inventoryUI;
+        public GameObject _craftingUI;
         public GameObject _menuUI;
+
+        public Button quickCraftBtn;
+        public Button inventoryBtn;
 
         [HideInInspector] public Rigidbody2D _rb;
         [HideInInspector] public CapsuleCollider2D _collider;
@@ -44,6 +50,7 @@ namespace Player
 
         public bool isInteract = false;
         public bool isInventoryOpen = false;
+        public bool isCraftingOpen = false;
         public bool isMenuOpen = false;
         public bool isUIOpen;
 
@@ -59,6 +66,8 @@ namespace Player
         private Vector2 _moveDirection = Vector2.zero;
         public Character character;
         private float offsetDistance = 1.2f;
+        public float passiveRegenE = .50f;
+        public float passiveRegenH = .10f;
         public float actionTimer;
 
         [Header("Data")]
@@ -126,8 +135,8 @@ namespace Player
             ApplyMovement();
 
             // Passive Regen
-            character.Rest(.01f);
-            character.Heal(.01f);
+            character.Rest(passiveRegenE);
+            character.Heal(passiveRegenH);
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -140,10 +149,10 @@ namespace Player
                 {
                     Interact();
 
-                    if (!isInteract)
+                    if (!isInteract && !useGrid)
                     {
                         UseToolWorld();
-                        character.GetTired(4);
+                        character.GetTired(1);
                     }
                 }
             }
@@ -153,6 +162,7 @@ namespace Player
                 if (!isInteract && useGrid)
                 {
                     UseToolGrid();
+                    character.GetTired(1 * selectedTiles.Count);
                 }
             }
         }
@@ -180,17 +190,33 @@ namespace Player
         #region UI
         protected void HandleUIInteraction()
         {
+            isInventoryOpen = _inventoryUI.activeSelf;
+            isCraftingOpen = _craftingUI.activeSelf;
+
+            quickCraftBtn.enabled = isInventoryOpen;
+            inventoryBtn.enabled = isCraftingOpen;
+
+            _mainUIRootContainer.SetActive(isCraftingOpen || isInventoryOpen);
+
             // Menu related
             if (Keyboard.current.iKey.wasReleasedThisFrame)
             {
                 OpenInventory();
             }
 
+            // Menu related
+            if (Keyboard.current.cKey.wasReleasedThisFrame)
+            {
+                OpenQuickCraftingMenu();
+            }
+
             if (Keyboard.current.escapeKey.wasReleasedThisFrame)
             {
-                if (isInventoryOpen)
+                if (_mainUIRootContainer.activeSelf)
                 {
-                    OpenInventory();
+                    _mainUIRootContainer.SetActive(false);
+                    _inventoryUI.SetActive(false);
+                    _craftingUI.SetActive(false);
                 }
                 else
                 {
@@ -198,7 +224,7 @@ namespace Player
                 }
             }
 
-            isUIOpen = isInventoryOpen || isMenuOpen;
+            isUIOpen = _mainUIRootContainer.activeSelf || isMenuOpen;
         }
 
         /// <summary>
@@ -211,8 +237,23 @@ namespace Player
             bool isOpen = _inventoryUI.activeSelf;
 
             _inventoryUI.SetActive(!isOpen);
+            _craftingUI.SetActive(false);
 
             isInventoryOpen = !isOpen;
+        }
+        /// <summary>
+        /// Method for opening the quick crafting UI
+        /// </summary>
+        protected void OpenQuickCraftingMenu() 
+        {
+            if (_craftingUI == null) { return; }
+
+            bool isOpen = _craftingUI.activeSelf;
+
+            _craftingUI.SetActive(!isOpen);
+            _inventoryUI.SetActive(false);
+
+            isCraftingOpen = !isOpen;
         }
         protected void OpenPauseMenu()
         {

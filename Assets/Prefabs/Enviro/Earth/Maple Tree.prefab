@@ -638,9 +638,8 @@ MonoBehaviour:
   shadowRenderer: {fileID: 0}
   healthBar: {fileID: 7828580552576816425}
   healthValueText: {fileID: 935296266561636804}
-  instance: {fileID: 0}
   health:
-    maxVal: 10
+    maxVal: 15
     currVal: 0
   matchLayerNum: 1
   nodeType: 0
@@ -652,6 +651,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd5ab959dd6a63545a43a52592fe15c9, type: 2}
   maxDropCount: 10
   minDropCount: 2
+  instance: {fileID: 0}
   root: {fileID: 0}
   col: {fileID: 0}
   rootLeaves: {fileID: 6917943616257182813}

@@ -42681,6 +42681,7 @@ MonoBehaviour:
   cropsSpritePrefab: {fileID: 1948080185874572963, guid: 571b9242d6346df409c8437c8a7cf826, type: 3}
   container: {fileID: 11400000, guid: 8e05d8daac154eb4b867b61e747f9c85, type: 2}
   hoedEffect: {fileID: 11400000, guid: 862afac789019e446b3b4f1f881501f3, type: 2}
+  dirtMound: {fileID: 5539937454998720235, guid: 3bf645a34719eea41a7f2643622f4bf9, type: 3}
   targetTilemap: {fileID: 922926350}
 --- !u!1 &935676646
 GameObject:
