@@ -12,9 +12,14 @@ namespace ToolAction
         {
             if (!GameManager.Instance.cropsManager.Check(gridPosition)) { return false; }
 
-            GameManager.Instance.cropsManager.Seed(gridPosition, item.crop);
+            return GameManager.Instance.cropsManager.Seed(gridPosition, item.crop, true);
+        }
 
-            return true;
+        public override bool VisualizeOnApplyToTileMap(Vector3Int gridPosition, Reader tilemapReadController, Item item)
+        {
+            if (!GameManager.Instance.cropsManager.Check(gridPosition)) { return false; }
+
+            return GameManager.Instance.cropsManager.Seed(gridPosition, item.crop, false);
         }
     }
 }

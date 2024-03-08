@@ -13701,9 +13701,9 @@ MonoBehaviour:
   floorTilemap: {fileID: 0}
   wallTilemap: {fileID: 0}
   borderTilemap: {fileID: 0}
-  markerTileValid: {fileID: 11400000, guid: c886216e6b6cbdb49a491ce1d6f07137, type: 2}
+  markerTileValid: {fileID: 11400000, guid: daed0e2c620477e4182a6a160b0257e8, type: 2}
   markerTileInValid: {fileID: 11400000, guid: f2ced7961b1d1104e81dd967bee095f8, type: 2}
-  markerTileDuplicate: {fileID: 11400000, guid: daed0e2c620477e4182a6a160b0257e8, type: 2}
+  markerTileDuplicate: {fileID: 11400000, guid: c886216e6b6cbdb49a491ce1d6f07137, type: 2}
   tempTile: {fileID: 11400000, guid: 98954664e8097684d97278aad87162d8, type: 2}
   markedCellPosition: {x: 0, y: 0, z: 0}
   holdStartPosition: {x: 0, y: 0, z: 0}
@@ -13713,6 +13713,7 @@ MonoBehaviour:
   isMultiple: 0
   isPlace: 0
   isRemove: 0
+  markerCount: 0
 --- !u!483693784 &1590472854
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -13758,7 +13759,7 @@ TilemapRenderer:
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
-  m_SortOrder: 0
+  m_SortOrder: 2
   m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
@@ -18213,6 +18214,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1391888588083641339, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391888588083641339, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391888588083641339, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
+      propertyPath: near clip plane
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391888588083641339, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
       propertyPath: orthographic size
       value: 8
       objectReference: {fileID: 0}
@@ -18244,6 +18257,14 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1969192318}
+    - target: {fileID: 5537667021204656303, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
+      propertyPath: m_Lens.FarClipPlane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5537667021204656303, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
+      propertyPath: m_Lens.NearClipPlane
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5537667021204656303, guid: cf462092ca282fe46b62ce3a1a1f867a, type: 3}
       propertyPath: m_Lens.OrthographicSize
       value: 8

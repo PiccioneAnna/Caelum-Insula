@@ -1,8 +1,6 @@
 using Data;
-using System.Collections;
 using System.Collections.Generic;
 using TilemapScripts;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -27,27 +25,47 @@ namespace ToolActions
 
             NullCheck();
 
-            TillCheckTilemap();
+            TillCheckTilemap(true);
 
             return success;
         }
 
-        private void TillCheckTilemap()
+        public override bool VisualizeOnApplyToTileMap(Vector3Int gridPosition, Reader tilemapReadController, Item item)
+        {
+            tilemapInfo = GameManager.Instance.tilemapInfoManager;
+            reader = tilemapReadController;
+            gridPos = gridPosition;
+
+            if (NullCheck()) return false;
+
+            TillCheckTilemap(false);
+
+            return success;
+        }
+
+        private void TillCheckTilemap(bool apply)
         {
             foreach (Tilemap tilemap in tilemapInfo.grassTileMaps)
             {
+                tilemap.GetComponent<TilemapRenderer>().mode = TilemapRenderer.Mode.Individual;
+
                 TileBase tileToTill = reader.GetTileBase(tilemap, gridPos);
+
+                Debug.Log(gridPos);
 
                 if (!canTill.Contains(tileToTill))
                 {
                     success = false;
                 }
                 else
-                {
-                    success = true;
-                    CheckBelowTile();
-                    GameManager.Instance.cropsManager.Till(gridPos, tilemap);
-                    return;
+                { 
+                    //CheckBelowTile();
+                    if (apply)
+                    {
+                        GameManager.Instance.cropsManager.Till(gridPos, tilemap);
+                        success = true;
+                        return;
+                    }
                 }
             }
         }
@@ -73,13 +91,15 @@ namespace ToolActions
             GameManager.Instance.cropsManager.ReplaceTile(gridPos, current, tilemapInfo.dirt);
         }
 
-        private void NullCheck()
+        private bool NullCheck()
         {
             if (tilemapInfo == null)
             {
                 Debug.Log("Tilemap info not found");
-                success = false;
+                return true;
             }
+
+            return false;
         }
     }
 }

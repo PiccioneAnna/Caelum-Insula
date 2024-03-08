@@ -72,13 +72,13 @@ public class CropsManager : MonoBehaviour
     public void Seed(Vector3Int position, Crop toSeed)
     {
         TilemapCheck();
-        cropsManager.Seed(position, toSeed);
+        cropsManager.Seed(position, toSeed, true);
     }
 
-    public void Plow(Vector3Int position)
+    public void Plow(Tilemap tt, Vector3Int position)
     {
         TilemapCheck();
-        cropsManager.Plow(position);
+        cropsManager.Plow(tt, position);
     }
 
     public void Till(Vector3Int position, Tilemap target)

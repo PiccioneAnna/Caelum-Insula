@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cb64636b6f0d88f49bc639433943aad0
+guid: dbac301289ace694582f131e19596d24
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 128
@@ -110,85 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: selectionTiles_1
+      name: Selection_Tiles_Padding_0
       rect:
         serializedVersion: 2
-        x: 128
-        y: 256
+        x: 64
+        y: 336
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4df2a89f5ebaa074ba97cc319103a174
-      internalID: -1981275689
+      spriteID: 18169b96e918e7446ba5cdf041242993
+      internalID: -1993023527
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: selectionTiles_2
+      name: Selection_Tiles_Padding_1
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 336
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70868a9cea9ad1942a9f8b5a8479dfaf
-      internalID: 101705599
+      spriteID: a09435dad60792b4081f8cb7c4298990
+      internalID: -1618353397
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: selectionTiles_4
+      name: Selection_Tiles_Padding_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 64
+        y: 160
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddd959cb6e8965f4082aaf4c586c388a
-      internalID: -1916160590
+      spriteID: a0b64f6fd5811b44a99d62b9afb8e4b5
+      internalID: -228705073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: selectionTiles_5
+      name: Selection_Tiles_Padding_3
       rect:
         serializedVersion: 2
         x: 256
-        y: 128
+        y: 160
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b6b7c0b21722b84d8511fd9e1dd23f7
-      internalID: 234386589
+      spriteID: a86b5cb67fd105f4cad58f9329e6dd45
+      internalID: 132134827
       vertices: []
       indices: 
       edges: []
@@ -204,12 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      selectionTiles_0: -2006612051
-      selectionTiles_1: -1981275689
-      selectionTiles_2: 101705599
-      selectionTiles_3: 1501589715
-      selectionTiles_4: -1916160590
-      selectionTiles_5: 234386589
+      Selection_Tiles_Padding_0: -1993023527
+      Selection_Tiles_Padding_1: -1618353397
+      Selection_Tiles_Padding_2: -228705073
+      Selection_Tiles_Padding_3: 132134827
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

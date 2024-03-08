@@ -25,6 +25,8 @@ namespace TilemapScripts
                 worldPosition = pos;
             }
 
+            worldPosition.z = 0;
+
             Vector3Int gridPosition = tilemap.WorldToCell(worldPosition);
             gridPosition = new Vector3Int(gridPosition.x, gridPosition.y, 0);
             return gridPosition;
@@ -36,7 +38,7 @@ namespace TilemapScripts
 
             if (tilemap == null) { return null; }
 
-            gridPos = tilemap.WorldToCell(new Vector3(worldPosition.x, worldPosition.y, 0));
+            gridPos = tilemap.WorldToCell(new Vector3(gridPos.x, gridPos.y, 0));
             TileBase tile = tilemap.GetTile(gridPos);
 
             return tile;

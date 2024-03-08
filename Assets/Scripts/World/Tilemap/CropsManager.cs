@@ -106,9 +106,9 @@ namespace TilemapScripts
             return container.Get(position) != null;
         }
 
-        public void Plow(Vector3Int position)
+        public void Plow(Tilemap tt, Vector3Int position)
         {
-            CreatePlowedTile(position);
+            CreatePlowedTile(tt, position);
         }
 
         // Removes grass from a map
@@ -122,20 +122,25 @@ namespace TilemapScripts
             target.SetTile(new Vector3Int(position.x, position.y, 0), tile);
         }
 
-        public void Seed(Vector3Int position, Crop toSeed)
+        public bool Seed(Vector3Int position, Crop toSeed, bool apply)
         {
             CropTile tile = container.Get(position);
 
-            if (tile == null) { return; }
+            if (tile == null) { return false; }
 
-            if (tile.crop != null) { return; }
+            if (tile.crop != null) { return false; }
 
-            tile.crop = toSeed;
+            if (apply)
+            {
+                tile.crop = toSeed;
 
-            tile.dirtMound = Instantiate(dirtMound, position + new Vector3(0.5f, 0.4f), Quaternion.identity);
-            tile.dirtMound.GetComponent<SpriteRenderer>().sortingOrder = tile.renderer.sortingOrder; 
+                tile.dirtMound = Instantiate(dirtMound, position + new Vector3(0.5f, 0.4f), Quaternion.identity);
+                tile.dirtMound.GetComponent<SpriteRenderer>().sortingOrder = tile.renderer.sortingOrder;
 
-            inventoryManager.RemoveItem(toSeed.seeds);
+                inventoryManager.RemoveItem(toSeed.seeds);
+            }
+
+            return true;
         }
 
         public void PickUp(Vector3Int gridPosition)
@@ -192,7 +197,7 @@ namespace TilemapScripts
         /// What a hoe does, preps a dirt for planting
         /// </summary>
         /// <param name="position"></param>
-        private void CreatePlowedTile(Vector3Int position)
+        private void CreatePlowedTile(Tilemap tt, Vector3Int position)
         {
             CropTile crop = new();
             container.Add(crop);
@@ -201,7 +206,7 @@ namespace TilemapScripts
 
             VisualizeTile(crop);
 
-            targetTilemap.SetTile(position, hoedEffect);
+            tt.SetTile(position, hoedEffect);
         }
     }
 }

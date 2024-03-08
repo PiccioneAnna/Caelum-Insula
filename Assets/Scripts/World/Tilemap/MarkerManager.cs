@@ -1,9 +1,34 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Timeline;
+using UnityEngine.WSA;
 
 namespace TilemapScripts
 {
+    public enum MarkerValidity
+    {
+        valid,
+        invalid,
+        normal
+    }
+
+    public struct MarkerTile
+    {
+        public MarkerTile(Vector3Int pos, MarkerValidity val, TileBase til)
+        {
+            position = pos;
+            valid = val;
+            tile = til;
+        }
+
+        public Vector3Int position;
+        public MarkerValidity valid;
+        public TileBase tile;
+    }
+
     public class MarkerManager : MonoBehaviour
     {
         #region Fields
@@ -29,6 +54,7 @@ namespace TilemapScripts
         public Vector3Int holdStartPosition;
         Vector3Int oldCellPosition;
 
+        public List<MarkerTile> markers;
         public List<Vector3Int> multiPositions;
 
         [Header("Conditional States")]
@@ -39,7 +65,10 @@ namespace TilemapScripts
         public bool isRemove;
         private bool setStart;
 
+        public int markerCount;
+
         BoundsInt bounds;
+        BoundsInt prevBounds;
         #endregion
 
         #region Runtime
@@ -50,6 +79,7 @@ namespace TilemapScripts
             instance = this;
             isMultiple = false;
             multiPositions = new List<Vector3Int>();
+            markers = new List<MarkerTile>();
         }
 
         private void Start()
@@ -59,10 +89,16 @@ namespace TilemapScripts
 
         private void Update()
         {
-            if (isShow == false) { return; }
+            if (isShow == false) 
+            {
+                ClearTilemap();
+                return;   
+            }
 
-            SelectTile();
+            SelectTile(); 
             Marker();
+
+            markerCount = markers.Count;
 
             if (isBuildMode) { ExpandFloor(); }
         }
@@ -75,7 +111,7 @@ namespace TilemapScripts
             isPlace = Input.GetMouseButtonUp(0) == true;
             if (isPlace && !isRemove)
             {
-                DrawBounds(bounds, floorTilemap, tempTile);
+                DrawBounds(bounds, floorTilemap);
             }
             else if (isPlace && isRemove)
             {
@@ -101,7 +137,6 @@ namespace TilemapScripts
             else
             {
                 setStart = false;
-                ClearTilemap(markerTilemap);
                 SingleTileMarker();
             }
         }
@@ -111,8 +146,10 @@ namespace TilemapScripts
         /// </summary>
         public void SingleTileMarker()
         {
+            ClearTilemap();
+
             markerTilemap.SetTile(oldCellPosition, null);
-            markerTilemap.SetTile(markedCellPosition, markerTileValid);
+            markerTilemap.SetTile(markedCellPosition, markerTileDuplicate);
             oldCellPosition = markedCellPosition;
         }
 
@@ -121,14 +158,42 @@ namespace TilemapScripts
         /// </summary>
         public void MultipleTileMarker()
         {
-            markerTilemap.SetTile(markedCellPosition, markerTileValid);
+            markerTilemap.SetTile(markedCellPosition, DetermineTile(markers.Find(marker => marker.position == markedCellPosition)));
             oldCellPosition = markedCellPosition;
 
-            RectangleRenderer();
+            RectangleRenderer();        
         }
         private void SelectTile()
         {
             markedCellPosition = tileMapReader.GetGridPosition(markerTilemap, Input.mousePosition, true);
+        }
+
+        public void RefreshMarkers()
+        {
+            foreach (MarkerTile marker in markers)
+            {
+                markerTilemap.SetTile(marker.position, DetermineTile(marker));
+                Debug.Log(marker.valid);
+            }
+        }
+
+        public void RefreshMarker(MarkerTile marker)
+        {
+            markerTilemap.SetTile(marker.position, DetermineTile(marker));
+        }
+
+        private TileBase DetermineTile(MarkerTile marker)
+        {
+            TileBase tb = markerTileDuplicate;
+
+            switch (marker.valid)
+            {
+                case 0: tb = markerTileValid; break;
+                case (MarkerValidity)1: tb = markerTileInValid; break;
+                case (MarkerValidity)2: tb = markerTileDuplicate; break;
+            }
+
+            return tb;
         }
 
         public void Show(bool selectable)
@@ -141,19 +206,23 @@ namespace TilemapScripts
         #region Shapes & Bounds
         private void RectangleRenderer()
         {
-            markerTilemap.ClearAllTiles();
-
             bounds.xMin = markedCellPosition.x < holdStartPosition.x ? markedCellPosition.x : holdStartPosition.x;
             bounds.xMax = markedCellPosition.x > holdStartPosition.x ? markedCellPosition.x : holdStartPosition.x;
             bounds.yMin = markedCellPosition.y < holdStartPosition.y ? markedCellPosition.y : holdStartPosition.y;
             bounds.yMax = markedCellPosition.y > holdStartPosition.y ? markedCellPosition.y : holdStartPosition.y;
 
-            DrawBounds(bounds, markerTilemap, markerTileValid);
+            DrawBounds(bounds, markerTilemap);
+
+            prevBounds = bounds;
         }
 
-        private void DrawBounds(BoundsInt b, Tilemap target, TileBase tile)
+        private void DrawBounds(BoundsInt b, Tilemap target)
         {
-            Vector3Int tempPos = new Vector3Int();
+            if (prevBounds == b) return;
+
+            ClearTilemap();
+
+            Vector3Int tempPos;
 
             // Draws bounds on given map
             for (int x = b.xMin; x <= b.xMax; x++)
@@ -161,11 +230,20 @@ namespace TilemapScripts
                 for (int y = b.yMin; y <= b.yMax; y++)
                 {
                     tempPos = new Vector3Int(x, y, 0);
-                    target.SetTile(tempPos, tile);
+                    MarkerTile marker;
 
-                    if (!multiPositions.Contains(tempPos))
+                    if (markers.Any(marker => marker.position == tempPos))
                     {
-                        multiPositions.Add(tempPos);
+                        marker = markers.Find(marker => marker.position == tempPos);
+                    }
+                    else
+                    {
+                        marker = new MarkerTile(tempPos, MarkerValidity.normal, markerTileDuplicate);
+                        marker.valid = GameManager.Instance.player.VisualizeToolTile(marker);
+
+                        RefreshMarker(marker);
+
+                        markers.Add(marker);
                     }
                 }
             }
@@ -178,17 +256,21 @@ namespace TilemapScripts
             {
                 for (int y = b.yMin; y <= b.yMax; y++)
                 {
-                    target.SetTile(new Vector3Int(x, y, 0), null);
+                    Vector3Int tempPos = new Vector3Int(x, y, 0);
+
+                    target.SetTile(tempPos, null);
+
+                    markers.Remove(markers.Find(marker => marker.position == tempPos));
                 }
             }
         }
         #endregion
 
         #region Tilemap Behaviour
-        public void ClearTilemap(Tilemap target)
+        public void ClearTilemap()
         {
-            target.ClearAllTiles();
-            multiPositions.Clear();
+            markerTilemap.ClearAllTiles();
+            markers.Clear();
         }
         #endregion
     }

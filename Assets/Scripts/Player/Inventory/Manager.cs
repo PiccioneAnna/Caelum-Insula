@@ -123,7 +123,7 @@ namespace Inventory
             if (inventorySlots[selectedSlot].GetComponentInChildren<Item>() != null)
             {
                 selectedItem = inventorySlots[selectedSlot].GetComponentInChildren<Item>().item;
-                Debug.Log("Selected Item: " + selectedItem.itemName);
+                //Debug.Log("Selected Item: " + selectedItem.itemName);
                 //UpdateHighlightItem(selectedSlot);
             }
             else

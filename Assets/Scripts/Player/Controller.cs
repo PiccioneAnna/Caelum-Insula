@@ -162,7 +162,6 @@ namespace Player
                 if (!isInteract && useGrid)
                 {
                     UseToolGrid();
-                    character.GetTired(1 * selectedTiles.Count);
                 }
             }
         }
@@ -296,24 +295,25 @@ namespace Player
             return complete;
         }
 
+        public MarkerValidity VisualizeToolTile(MarkerTile marker)
+        {
+            bool complete = selectedItem.onTileMapAction.VisualizeOnApplyToTileMap(marker.position, tilemapReader, selectedItem);
+
+            Debug.Log(complete);
+
+            return complete ? MarkerValidity.valid : MarkerValidity.invalid;
+        }
+
         public void UseToolGrid()
         {
             if (selectable)
             {
                 if (selectedItem.onTileMapAction == null) { return; }
+                if (!markerManager.isShow) { return; }
 
-                int count = multiGrid ? selectedTiles.Count : 1;
-
-                //Debug.Log(count);
-
-                for (int i = 0; i < count; i++)
+                foreach (MarkerTile marker in markerManager.markers)
                 {
-                    if (multiGrid)
-                    {
-                        selectedTilePosition = selectedTiles[i];
-                    }
-
-                    bool complete = selectedItem.onTileMapAction.OnApplyToTileMap(selectedTilePosition, tilemapReader, selectedItem);
+                    bool complete = selectedItem.onTileMapAction.OnApplyToTileMap(marker.position, tilemapReader, selectedItem);
 
                     // Checks if item used can be removed from inventory
                     if (complete)
@@ -325,8 +325,7 @@ namespace Player
                     }
                 }
 
-                multiGrid = false;
-                selectedTiles.Clear();
+                markerManager.ClearTilemap();
             }
         }
 
@@ -393,8 +392,6 @@ namespace Player
 
             multiGrid = markerManager.isMultiple;
             place = markerManager.isPlace;
-
-            if(multiGrid) { selectedTiles = markerManager.multiPositions; }
         }
         private void HandleSelection()
         {

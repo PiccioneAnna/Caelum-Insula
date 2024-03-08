@@ -18,6 +18,12 @@ namespace ToolActions
             return true;
         }
 
+        public virtual bool VisualizeOnApplyToTileMap(Vector3Int tilemapPosition, Reader tilemapReadController, Data.Item item)
+        {
+            Debug.LogWarning("VisualizeOnApplyToTileMap is not implimented");
+            return true;
+        }
+
         public virtual void OnItemUsed(Data.Item usedItem, Manager inventory)
         {
 

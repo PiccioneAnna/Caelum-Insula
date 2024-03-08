@@ -25,16 +25,33 @@ namespace ToolActions
 
             NullCheck();
 
-            HoeCheckTilemaps();
+            HoeCheckTilemaps(true);
 
             return success;
         }
 
-        private void HoeCheckTilemaps()
+        public override bool VisualizeOnApplyToTileMap(Vector3Int gridPosition, Reader tilemapReadController, Item item)
         {
-            foreach (Tilemap tilemap in tilemapInfo.dirtTilemaps)
+            tilemapInfo = GameManager.Instance.tilemapInfoManager;
+            reader = tilemapReadController;
+            gridPos = gridPosition;
+
+            NullCheck();
+
+            HoeCheckTilemaps(false);
+
+            return success;
+        }
+
+        private void HoeCheckTilemaps(bool apply)
+        {
+            foreach (Tilemap dirtMap in tilemapInfo.dirtTilemaps)
             {
-                TileBase tileToPlow = reader.GetTileBase(tilemap, gridPos);
+                success = true;
+
+                dirtMap.GetComponent<TilemapRenderer>().mode = TilemapRenderer.Mode.Individual;
+
+                TileBase tileToPlow = reader.GetTileBase(dirtMap, gridPos);
 
                 if (!canHoe.Contains(tileToPlow))
                 {
@@ -42,9 +59,19 @@ namespace ToolActions
                 }
                 else
                 {
-                    success = true;
-                    GameManager.Instance.cropsManager.Plow(gridPos);
-                    return;
+                    foreach(Tilemap grassMap in tilemapInfo.grassTileMaps)
+                    {
+                        if (reader.GetTileBase(grassMap, gridPos) != null)
+                        {
+                            success = false;
+                        }
+                    }
+
+                    if (apply && success)
+                    {
+                        GameManager.Instance.cropsManager.Plow(dirtMap, gridPos);
+                        return;
+                    }                 
                 }
             }
         }
