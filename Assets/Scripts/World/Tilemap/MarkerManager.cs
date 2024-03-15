@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.Timeline;
-using UnityEngine.WSA;
 
 namespace TilemapScripts
 {
