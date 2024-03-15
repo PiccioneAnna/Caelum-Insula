@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Data;
 using System;
+using Crafting;
 
 [Serializable]
 public struct ItemForPickup
@@ -39,6 +40,7 @@ namespace Data
         public Crop crop;
         public GameObject treeN;
         public GameObject projectile;
+        public CraftRecipe recipe;
 
         [Header("Actions")]
         public ToolActions.Base onAction;

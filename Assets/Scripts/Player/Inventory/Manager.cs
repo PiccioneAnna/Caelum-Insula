@@ -1,3 +1,4 @@
+using Crafting;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -277,17 +278,17 @@ namespace Inventory
             return inventorySlot.gameObject.GetComponentInChildren<Item>().count;
         }
 
-        /*public bool CheckItem(RecipeElement itemtoCheck)
+        public bool CheckItem(RecipeElement itemtoCheck)
         {
-            InventorySlot inventorySlot = null;
+            Slot inventorySlot = null;
 
-            foreach (InventorySlot slot in inventorySlots)
+            foreach (Slot slot in inventorySlots)
             {
-                slot.inventoryItem = slot.gameObject.GetComponentInChildren<InventoryItem>();
+                slot.item = slot.gameObject.GetComponentInChildren<Item>();
 
-                if (slot.inventoryItem != null &&
-                    slot.inventoryItem.item != null &&
-                    slot.inventoryItem.item == itemtoCheck.item)
+                if (slot.item != null &&
+                    slot.item.item != null &&
+                    slot.item.item == itemtoCheck.item)
                 {
                     inventorySlot = slot;
                 }
@@ -295,10 +296,10 @@ namespace Inventory
 
             if (inventorySlot == null) { return false; }
 
-            if (itemtoCheck.item.stackable) { return inventorySlot.inventoryItem.count >= itemtoCheck.count; }
+            if (itemtoCheck.item.stackable) { return inventorySlot.item.count >= itemtoCheck.count; }
 
             return true;
-        } */
+        }
 
         public Item GetSelectedItem(bool use)
         {
