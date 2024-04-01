@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using InGameTasks;
 using UI;
 using UnityEngine;
 
@@ -16,7 +15,8 @@ public enum CreatureState
     Hurting,
     Attacking,
     Defending,
-    Fleeing
+    Fleeing,
+    Working
 }
 
 /// <summary>
@@ -25,6 +25,9 @@ public enum CreatureState
 public enum CreatureGoal
 {
     FindFood,
+    Work,
+    FindCompanySocial,
+    FindRomanticCompany,
     RunAway,
     GetSleep
 }
@@ -38,7 +41,9 @@ public class Creature : MonoBehaviour, IDamageable
 {
     #region Fields
     // Reference to a scriptable object that contains creature information
+    public CreatureInformation defaultCreatureInformation;
     public CreatureInformation creatureInformation;
+    public CreatureUIManager creatureUIManager;
     public Animator animator;
     
     public Stat health;
@@ -86,8 +91,11 @@ public class Creature : MonoBehaviour, IDamageable
     #region Virtual Methods
 
     public virtual void Attack() { }
-
-
+    public virtual void Defend() { }
+    public virtual void Flee() { }
+    public virtual void FindFood() { }
+    public virtual void FindCompany() { }
+    public virtual void Work(TaskInfo task) { }
 
     #endregion
 
@@ -115,7 +123,7 @@ public class Creature : MonoBehaviour, IDamageable
     }
     #endregion
 
-    #region UI Universals
+    #region Creature Info
     /// <summary>
     /// Updates all Creature UI Elements with relevant data
     /// </summary>
@@ -156,6 +164,5 @@ public class Creature : MonoBehaviour, IDamageable
         player = GameManager.Instance.player.transform;
     }
     #endregion
-
 
 }

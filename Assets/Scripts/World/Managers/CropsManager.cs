@@ -14,6 +14,9 @@ public class CropTile
     public Vector2Int position;
     public GameObject dirtMound;
 
+    public Stat health;
+    public Stat growth; 
+
     public bool Complete
     {
         get
@@ -30,6 +33,12 @@ public class CropTile
         damage = 0;
         crop = null;
         renderer.gameObject.SetActive(false);
+    }
+
+    internal void PopulateStats()
+    {
+        health = new Stat(100, 100);
+        growth = new Stat(growTimer, crop.timeToGrow);
     }
 
     internal void Regrowth()

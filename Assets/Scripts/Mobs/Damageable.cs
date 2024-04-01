@@ -8,10 +8,8 @@ public class Damageable : MonoBehaviour
     IDamageable damageable;
 
     internal void TakeDamage(float damage)
-    {
-        damageable ??= GetComponent<IDamageable>();
-
-        if (damageable != null)
+    {       
+        if (TryGetComponent<IDamageable>(out damageable))
         {
             damageable.CalculateDamage(ref damage);
             damageable.ApplyDamage(damage);

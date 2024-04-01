@@ -147,8 +147,6 @@ namespace Player
             {
                 if (!isInteract && !isUIOpen && character.energy.currVal > 0 && canDoAction)
                 {
-                    Interact();
-
                     if (!isInteract && !useGrid)
                     {
                         UseToolWorld();
@@ -159,6 +157,8 @@ namespace Player
 
             if (Input.GetMouseButtonUp(0))
             {
+                if(selectedItem == null) { Interact(); }
+                
                 if (!isInteract && useGrid)
                 {
                     UseToolGrid();
@@ -331,20 +331,17 @@ namespace Player
 
         private void Interact()
         {
-            /// Handles collision for key input instead of mouse
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector2 position = _rb.position;
-                _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(position, sizeOfIA.x);
+            Debug.Log("tryna interact");
 
-                foreach (Collider2D c in colliders)
+            _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D[] colliders = Physics2D.OverlapPointAll(_mousePos);
+
+            foreach (Collider2D c in colliders)
+            {
+                if (c.TryGetComponent<Interactable>(out var obj))
                 {
-                    Interactable obj = c.GetComponent<Interactable>();
-                    if (obj != null)
-                    {
-                        obj.Interact(controller);
-                    }
+                    Debug.Log("Found an interactable...");
+                    obj.Interact(controller);
                 }
             }
         }

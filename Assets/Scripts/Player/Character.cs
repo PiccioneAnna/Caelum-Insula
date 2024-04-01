@@ -4,36 +4,6 @@ using TMPro;
 using UI;
 using System.Collections;
 
-[Serializable]
-public class Stat
-{
-    public int maxVal;
-    public float currVal;
-
-    public Stat(int curr, int max)
-    {
-        maxVal = max;
-        currVal = curr;
-    }
-
-    internal void Subtract(int amount)
-    {
-        currVal -= amount;
-        Mathf.Clamp(currVal, -.5f, maxVal);
-    }
-
-    internal void Add(float amount)
-    {
-        currVal += amount;
-        Mathf.Clamp(currVal, -.5f, maxVal);
-    }
-
-    internal void SetToMax()
-    {
-        currVal = maxVal;
-    }
-}
-
 public class Character : MonoBehaviour
 {
     #region Fields

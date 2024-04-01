@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d44c8fd0ecd0e148995f31f1114c6a2, type: 3}
+  m_Name: Fire Bunny Default
+  m_EditorClassIdentifier: 
+  _name: Fire Bunny
+  _index: 1
+  _level: 1
+  _openness:
+    minVal: 0
+    maxVal: 0
+    currVal: 0
+  _conscientiousness:
+    minVal: 0
+    maxVal: 0
+    currVal: 0
+  _extraversion:
+    minVal: 0
+    maxVal: 0
+    currVal: 0
+  _agreeableness:
+    minVal: 0
+    maxVal: 0
+    currVal: 0
+  _neuroticism:
+    minVal: 0
+    maxVal: 0
+    currVal: 0
+  _health:
+    maxVal: 0
+    currVal: 0
+  _stamina:
+    maxVal: 0
+    currVal: 0
+  _food:
+    maxVal: 0
+    currVal: 0
+  _mood:
+    maxVal: 0
+    currVal: 0
+  _attack: 2
+  _defense: 3
+  _speed: 7
+  _elements: 
+  _drops:
+  - {fileID: 11400000, guid: 6c906bbfc6847c244bce1980d9239034, type: 2}

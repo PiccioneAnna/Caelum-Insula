@@ -1,3 +1,4 @@
+using Assets.Scripts.World.Interacts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace TilemapScripts
     {
 
         [SerializeField] UnityEngine.GameObject cropsSpritePrefab;
+        private CropUI cropsUI;
 
         [SerializeField] Inventory.CropsContainer container;
 
@@ -98,6 +100,8 @@ namespace TilemapScripts
                         cropTile.growStage += 1;
                     }
                 }
+
+                cropTile.PopulateStats();
             }
         }
 
@@ -182,6 +186,7 @@ namespace TilemapScripts
                 go.transform.position = targetTilemap.CellToWorld(new Vector3Int(cropTile.position.x, cropTile.position.y, 0));
                 go.transform.position += new Vector3(.5f, .5f);
                 cropTile.renderer = go.GetComponent<SpriteRenderer>();
+                cropTile.renderer.gameObject.GetComponentInChildren<CropInteract>().cropTile = cropTile;
             }
 
             bool growing = cropTile.crop != null && cropTile.growTimer >= cropTile.crop.growthStageTime[0];
