@@ -13,6 +13,7 @@ namespace ToolActions
 
         private Reader reader;
         private TilemapInfoManager tilemapInfo;
+        private TilemapScripts.CropsManager cropsManager;
         private Vector3Int gridPos;
 
         private bool success;
@@ -20,6 +21,7 @@ namespace ToolActions
         public override bool OnApplyToTileMap(Vector3Int gridPosition, TilemapScripts.Reader tilemapReadController, Item item)
         {
             tilemapInfo = GameManager.Instance.tilemapInfoManager;
+            cropsManager = GameManager.Instance.cropsManager;
             reader = tilemapReadController;
             gridPos = gridPosition;
 
@@ -69,7 +71,7 @@ namespace ToolActions
 
                     if (apply && success)
                     {
-                        GameManager.Instance.cropsManager.Plow(dirtMap, gridPos);
+                        cropsManager.Plow(cropsManager.targetTilemap, gridPos);
                         return;
                     }                 
                 }

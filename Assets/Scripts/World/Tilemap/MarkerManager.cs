@@ -52,6 +52,8 @@ namespace TilemapScripts
         public Vector3Int holdStartPosition;
         Vector3Int oldCellPosition;
 
+        public Vector2 allowedBounds; // represents amount in each direction the tool has
+
         public List<MarkerTile> markers;
         public List<Vector3Int> multiPositions;
 
@@ -156,6 +158,13 @@ namespace TilemapScripts
         /// </summary>
         public void MultipleTileMarker()
         {
+            if(Mathf.Abs(holdStartPosition.x - markedCellPosition.x) > allowedBounds.x ||
+                Mathf.Abs(holdStartPosition.y - markedCellPosition.y) > allowedBounds.y)
+            {
+                isShow = false;
+                return;
+            }
+
             markerTilemap.SetTile(markedCellPosition, DetermineTile(markers.Find(marker => marker.position == markedCellPosition)));
             oldCellPosition = markedCellPosition;
 

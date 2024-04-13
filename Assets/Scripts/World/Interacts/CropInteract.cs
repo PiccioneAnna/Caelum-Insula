@@ -20,6 +20,8 @@ namespace Assets.Scripts.World.Interacts
                 return;
             }
 
+            if (cropTile.Complete) { child.SetActive(false); }
+
             canvas.gameObject.GetComponentInChildren<CropUI>().UpdateCropUI(cropTile);
         }
     }
