@@ -64,7 +64,7 @@ RectTransform:
   m_Father: {fileID: 2951049172665745160}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -272,6 +272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7413692800886811671}
+  - component: {fileID: 342857699386159022}
   m_Layer: 0
   m_Name: Animators
   m_TagString: Untagged
@@ -297,6 +298,27 @@ Transform:
   - {fileID: 1900261865170115144}
   m_Father: {fileID: 2406365588678161462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &342857699386159022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773614649674026050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5804a65b5646c554f82298e9d325d4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side_Animator: {fileID: 0}
+  front_Animator: {fileID: 0}
+  back_Animator: {fileID: 0}
+  bunnyObj: {fileID: 3348024912117656631}
+  front: {fileID: 5515042854866976698}
+  back: {fileID: 1510810686478421530}
+  side: {fileID: 6589446081426532492}
+  direction: 0
+  dirValue: {x: 0, y: 0}
 --- !u!1 &886875780288285486
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1115973982283203158
 Transform:
   m_ObjectHideFlags: 0
@@ -617,7 +639,7 @@ Transform:
   m_GameObject: {fileID: 1510810686478421530}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.04, y: -2.203, z: 0}
+  m_LocalPosition: {x: 0.04, y: -0.081, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1566,7 +1588,7 @@ MonoBehaviour:
   defaultCreatureInformation: {fileID: 0}
   creatureInformation: {fileID: 0}
   creatureUIManager: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 342857699386159022}
   health:
     maxVal: 100
     currVal: 0
@@ -1585,6 +1607,9 @@ MonoBehaviour:
   damage: 10
   timeToAttack: 1
   staminaDecay: 1
+  direction: {x: 0, y: 0}
+  wayPoint: {x: 0, y: 0}
+  position: {x: 0, y: 0}
   hpBarExternal: {fileID: 8459363868025416548}
 --- !u!1 &3377431776728248876
 GameObject:
@@ -2456,7 +2481,7 @@ Transform:
   m_GameObject: {fileID: 5515042854866976698}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.155, y: 2.028, z: 0}
+  m_LocalPosition: {x: -0.14, y: 0.052, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2948,7 +2973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1380682746041349641
 Transform:
   m_ObjectHideFlags: 0
@@ -3555,7 +3580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1625797739406712187
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3564,8 +3589,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8542483500518620957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1338, y: 0.1338, z: 0.1338}
+  m_LocalPosition: {x: 0, y: 0, z: -0.019865}
+  m_LocalScale: {x: 0.16594657, y: 0.16594657, z: 0.16594657}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3809505224967553803}
@@ -3574,7 +3599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.247}
+  m_AnchoredPosition: {x: -0.008, y: 0.51}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &909180223891647681

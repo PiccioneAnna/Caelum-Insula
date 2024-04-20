@@ -28,12 +28,8 @@ public class Bunny : Creature
             Character character = targets[i].GetComponent<Character>();
             if (character != null)
             {
-                animator.SetTrigger(StaticAnimationStates.ATTACK);
-
                 character.TakeDamage(damage);
             }
         }
     }
-
-
 }

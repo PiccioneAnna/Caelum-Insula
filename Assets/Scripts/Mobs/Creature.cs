@@ -1,3 +1,4 @@
+using CreatureClasses;
 using InGameTasks;
 using UI;
 using UnityEngine;
@@ -44,7 +45,7 @@ public class Creature : MonoBehaviour, IDamageable
     public CreatureInformation defaultCreatureInformation;
     public CreatureInformation creatureInformation;
     public CreatureUIManager creatureUIManager;
-    public Animator animator;
+    public CreatureAnimationManager animator;
     
     public Stat health;
     public Stat stamina;
@@ -59,6 +60,10 @@ public class Creature : MonoBehaviour, IDamageable
     [SerializeField] protected float timeToAttack = 2f;
     [SerializeField] protected float staminaDecay = 1f;
     protected float attackTimer;
+
+    public Vector2 direction;
+    public Vector2 position;
+    public Vector2 prevPosition;
 
     #region UI References
     public StatusBar hpBarExternal;
@@ -88,6 +93,17 @@ public class Creature : MonoBehaviour, IDamageable
     }
     #endregion
 
+    #region Animator Calls
+    public void Animate()
+    {
+        if(animator != null)
+        {
+            animator.dirValue = direction;
+            animator.UpdateAnimation();
+        }
+    }
+    #endregion
+
     #region Virtual Methods
 
     public virtual void Attack() { }
@@ -103,8 +119,6 @@ public class Creature : MonoBehaviour, IDamageable
     public void ApplyDamage(float damage)
     {
         health.currVal -= damage;
-
-        animator.SetTrigger(StaticAnimationStates.HURT);
 
         UpdateCreatureUI();
     }
@@ -143,12 +157,20 @@ public class Creature : MonoBehaviour, IDamageable
     {
         if(player == null) { FindPlayer(); }
 
+        if (prevPosition != (Vector2)transform.position)
+        {
+            direction = (prevPosition - (Vector2)transform.position).normalized;
+            prevPosition = transform.position;
+        }
+
         // cuts out z so it stays 0 for rendering purposes
         transform.position = Vector2.MoveTowards(
             transform.position,
             player.position,
             speed * Time.deltaTime
             );
+
+        Animate();
     }
 
     protected void SetAllStatsToMax()

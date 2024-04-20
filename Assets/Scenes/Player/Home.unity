@@ -35621,7 +35621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2406365588678161462, guid: 896c912f3d6e7eb41bfb1b2b1af62824, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.37025976
+      value: -2.03
       objectReference: {fileID: 0}
     - target: {fileID: 2406365588678161462, guid: 896c912f3d6e7eb41bfb1b2b1af62824, type: 3}
       propertyPath: m_LocalPosition.z
@@ -35655,6 +35655,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3024472992627125608, guid: 896c912f3d6e7eb41bfb1b2b1af62824, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3348024912117656631, guid: 896c912f3d6e7eb41bfb1b2b1af62824, type: 3}
       propertyPath: m_Name
       value: Fire Bunny
@@ -35669,7 +35673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8233713911749246354, guid: 896c912f3d6e7eb41bfb1b2b1af62824, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

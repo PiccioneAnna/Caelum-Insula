@@ -60,8 +60,6 @@ public class DungeonGeneration : MonoBehaviour
     {
         cellularAutomata = gameObject.GetComponent<CellularAutomata>();
         tilemapCollider = targetGround.GetComponent<TilemapCollider2D>();
-
-        cellularAutomata.Set(_width, _height, _fillPercent, _liveNeighboursRequired, _stepCount);
     }
 
     #endregion

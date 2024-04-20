@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 #region resources and credit
 // resources and code help/inspiration
@@ -10,21 +11,28 @@ public class CellularAutomata : MonoBehaviour
 {
     #region fields
     private int[,] _cellularAutomata;
+    private Tilemap _refTilemap;
 
     private int _width;
     private int _height;
     private float _fillPercent;
     private int _liveNeighboursRequired;
     private int _stepCount;
+    private float _additionalSpawnChance = 0f;
+
+    public int _filledCells;
     #endregion
 
-    public void Set(int width, int height, float fillPercent, int liveNeighbors, int step)
+    public void Set(int width, int height, float fillPercent, 
+        int liveNeighbors, int step, float addSpawn, Tilemap refTm = null)
     {
         _width = width;
         _height = height;
         _fillPercent = fillPercent;
         _liveNeighboursRequired = liveNeighbors;
         _stepCount = step;
+        _additionalSpawnChance = addSpawn;
+        _refTilemap = refTm;
     }
 
     public int[,] GenerateMap(int[,] previousArray)
@@ -38,6 +46,16 @@ public class CellularAutomata : MonoBehaviour
 
         // Add lower map constraints
         ApplyPreviousArrayConstraints(previousArray);
+
+        return _cellularAutomata;
+    }
+
+    public int[,] UpdateMap(int stepCount)
+    {
+        for (int i = 0; i < stepCount; i++)
+        {
+            Step();
+        }
 
         return _cellularAutomata;
     }
@@ -103,13 +121,35 @@ public class CellularAutomata : MonoBehaviour
     void Step()
     {
         int[,] caBuffer = new int[_width, _height];
+        int i;
+        int liveCellCount;
+
+        _filledCells = 0;
 
         for (int x = 0; x < _width; ++x)
         {
             for (int y = 0; y < _height; ++y)
             {
-                int liveCellCount = _cellularAutomata[x, y] + GetNeighbourCellCount(x, y);
-                caBuffer[x, y] = liveCellCount > _liveNeighboursRequired ? 1 : 0;
+                liveCellCount = _cellularAutomata[x, y] + GetNeighbourCellCount(x, y);
+                i = liveCellCount > _liveNeighboursRequired ? 1 : 0;
+
+                if (i == 1)
+                {
+                    // Boost to additional neighbors, greater chance of spawning
+                    if(liveCellCount - _liveNeighboursRequired > 0)
+                    {
+                        _additionalSpawnChance *= (liveCellCount - _liveNeighboursRequired);
+                    }
+
+                    i = Random.value > _additionalSpawnChance ? 0 : 1;
+
+                    if(i == 1)
+                    {
+                        _filledCells++;
+                    }
+                }
+
+                caBuffer[x, y] = i;
             }
         }
 

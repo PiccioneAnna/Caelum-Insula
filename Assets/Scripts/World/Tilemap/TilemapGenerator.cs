@@ -71,6 +71,25 @@ public static class TilemapGenerator
         return caBuffer;
     }
 
+    public static BoundsInt ReturnTilemapInfo(Tilemap tm)
+    {
+        tm.CompressBounds();
+        return tm.cellBounds;
+    }
+
+    public static int GetTilemapTileCount(Tilemap tm)
+    {
+        tm.CompressBounds();
+        int count = 0;
+
+        foreach (var pos in tm.cellBounds.allPositionsWithin)
+        {
+            if (pos != null) { count++; }
+        }
+
+        return count;
+    }
+
     public static Vector3Int GetRandomPos(List<Vector3Int> tilesPos)
     {
         return tilesPos != null ? tilesPos[Random.Range(0, tilesPos.Count)] : Vector3Int.zero;
